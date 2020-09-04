@@ -11,7 +11,8 @@ package frontendblog;
  */
 public class Main {
      public static void main(String[] args) {
-        Raiz root = new Raiz(); 
-        root.mostrarUsuarios();
+        Raiz root = new Raiz();
+        
+       
     }
 }

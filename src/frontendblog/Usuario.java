@@ -5,14 +5,8 @@
  */
 package frontendblog;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -23,60 +17,101 @@ public class Usuario {
     private String nombre; 
     private String userName; 
     private String email; 
-    private Direccion direccion; 
-    private String numeroTelefonico; 
-    private String website; 
+ 
+   
     
     private ArrayList <Post> posts; 
 
-    public Usuario(int id, String nombre, String userName, String email, Direccion direccion, String numeroTelefonico, String website) {
+    public Usuario(int id, String nombre, String userName, String email) {
         this.id = id;
         this.nombre = nombre;
         this.userName = userName;
         this.email = email;
-        this.direccion = direccion;
-        this.numeroTelefonico = numeroTelefonico;
-        this.website = website;
-        inicializarPosts(); 
+       
     }
     
-    public void inicializarPosts(){
+     public Usuario(){
         posts = new ArrayList<>(); 
-        String path = "src/Data/posts.json"; 
-        String data;
-        try {
-            data = new String(Files.readAllBytes(Paths.get(path)));
-            JSONArray posts = new JSONArray(data);
-             for (int i = 0; i < posts.length(); i++) {
-                JSONObject post = posts.getJSONObject(i);
-                
-                if(post.getInt("userId") == this.id)
-                    this.posts.add(crearPost(post));
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-         
-        
     }
+    
+ 
 
-    private Post crearPost(JSONObject post) {
-        int userId = post.getInt("userId"); 
-        int id = post.getInt("id"); 
-        String title = post.getString("title"); 
-        String body = post.getString("body"); 
-        
-        return new Post(userId, id, title, body); 
-    }
     
     public String toString(){
-        return String.format("NOMBRE: %s - %s%nCONTACTO: %s%n", this.nombre, this.email, this.numeroTelefonico);
+        return String.format("Nombre: %s id: %d%nUsername: %s%nemail: %s%n", this.getNombre(), this.getId(), this.getUserName(), this.getEmail());
     }
-    //METODO DE PRUEBA
-    public void mostrarPosts(){
-        for (Post post : posts) {
-            System.out.println(post);
-        }
+    
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
+    }
+
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+  
+
+  
+
+
+    /**
+     * @return the posts
+     */
+    public ArrayList <Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(ArrayList <Post> posts) {
+        this.posts = posts;
     }
     
     
