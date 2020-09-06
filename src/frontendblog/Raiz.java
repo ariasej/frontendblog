@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  *
  * @author jony1
@@ -26,10 +25,7 @@ public class Raiz {
         js = new JSONFileReader("src/Data/users.json");
         users = new ArrayList<>();
         inicializarUsuarios();
-        
-         users.forEach((user) -> {
-            System.out.println(user);
-        });
+
     }
 
     public void inicializarUsuarios() {
@@ -64,6 +60,7 @@ public class Raiz {
         while (buscarId.find()) {
             Usuario usr = new Usuario();
             usr.setId(Integer.parseInt(buscarId.group(1)));
+            usr.inicializarPosts();
             users.add(usr);
         }
 
@@ -88,8 +85,15 @@ public class Raiz {
             i++;
         }
 
-       
+    }
 
+    public void mostrarTodo() {
+        for (Usuario user : users) {
+            System.out.println("--------------------------------------------------------------");
+            System.out.println(user);
+            System.out.println("--------------------------------------------------------------");
+            user.mostrarPosts();
+        }
     }
 
 }

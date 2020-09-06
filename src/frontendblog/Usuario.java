@@ -5,42 +5,134 @@
  */
 package frontendblog;
 
-
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author jony1
  */
 public class Usuario {
-    private int id; 
-    private String nombre; 
-    private String userName; 
-    private String email; 
- 
-   
-    
-    private ArrayList <Post> posts; 
+
+    private int id;
+    private String nombre;
+    private String userName;
+    private String email;
+    private JSONFileReader js;
+
+    private ArrayList<Post> posts;
 
     public Usuario(int id, String nombre, String userName, String email) {
         this.id = id;
         this.nombre = nombre;
         this.userName = userName;
         this.email = email;
-       
-    }
-    
-     public Usuario(){
-        posts = new ArrayList<>(); 
-    }
-    
- 
 
-    
-    public String toString(){
+    }
+
+    public Usuario() {
+        posts = new ArrayList<>();
+        js = new JSONFileReader("src/Data/posts.json");
+
+    }
+
+    public void inicializarPosts() {
+        String data = "";
+        ArrayList<Post> allPosts = new ArrayList<>();
+
+        try {
+            data = js.getJSONdataToString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        //CREAR EXPRESIONES REGULARES
+        Pattern title = Pattern.compile("[\"]title[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1"
+        );
+        Matcher findTitle = title.matcher(data);
+
+        Post p;
+        String titulo;
+        while (findTitle.find()) {
+            p = new Post();
+            titulo = extraerContenido(findTitle.group(0), "\"");
+            p.setTitle(titulo);
+            allPosts.add(p);
+
+        }
+
+        Pattern userId = Pattern.compile("[\"]userId[\"][:]\\s(\\d{1,2})");
+        Pattern id = Pattern.compile("[\"]id[\"][:]\\s(\\d{1,})");
+        Pattern body = Pattern.compile("[\"]body[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1"
+        );
+
+        Matcher findId = id.matcher(data);
+        Matcher findUserId = userId.matcher(data);
+        Matcher findBody = body.matcher(data);
+
+        int i = 0;
+        while (findId.find()) {
+            allPosts.get(i).setId(Integer.parseInt(findId.group(1)));
+            i++;
+        }
+
+        i = 0;
+
+        while (findUserId.find()) {
+            allPosts.get(i).setUserId(Integer.parseInt(findUserId.group(1)));
+            i++;
+        }
+
+        i = 0;
+        String cuerpo;
+        while (findBody.find()) {
+            cuerpo = extraerContenido(findBody.group(0), "\"");
+            allPosts.get(i).setBody(cuerpo);
+            i++;
+        }
+
+        for (Post post : allPosts) {
+
+            if (post.getUserId() == this.id) {
+                posts.add(post);
+            }
+
+        }
+
+    }
+
+    public String extraerContenido(String target, String delete) {
+        int i = 0;
+        while (target.contains(delete)) {
+            target = target.substring(target.indexOf(delete) + 1);
+            i++;
+            // System.out.println(target);
+            if (i == 3) {
+                break;
+            }
+        }
+
+        target = target.replaceAll("\"", "");
+        // System.out.println(target);
+        return target;
+    }
+
+    public String toString() {
+        System.out.println("Cantidad de posts de este usuario: " + posts.size());
         return String.format("Nombre: %s id: %d%nUsername: %s%nemail: %s%n", this.getNombre(), this.getId(), this.getUserName(), this.getEmail());
     }
-    
+
+    public void mostrarPosts() {
+        for (Post post : posts) {
+            System.out.println("------------------");
+            System.out.println(post);
+            System.out.println("------------------");
+        }
+    }
 
     /**
      * @return the id
@@ -98,21 +190,15 @@ public class Usuario {
         this.email = email;
     }
 
-  
-
-  
-
-
     /**
      * @return the posts
      */
-    public ArrayList <Post> getPosts() {
+    public ArrayList<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList <Post> posts) {
+    public void setPosts(ArrayList<Post> posts) {
         this.posts = posts;
     }
-    
-    
+
 }

@@ -95,7 +95,7 @@ class Post {
     
     @Override
     public String toString(){
-        return String.format("Titulo:%s%nCUERPO%n%s%n",this.title, this.body); 
+        return String.format("Titulo:%s ID CREADOR: %d%nCUERPO%n%s%n",this.title,this.userId, this.body); 
         
     }
 
