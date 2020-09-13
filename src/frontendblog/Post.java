@@ -93,8 +93,11 @@ class Post {
 
     @Override
     public String toString() {
-        return String.format("Titulo:%s ID CREADOR: %d%nCUERPO%n%s%n", this.title, this.userId, this.body);
-
+        StringBuffer sb = new StringBuffer();
+        sb.append("\nTítulo: ").append(this.title);
+        sb.append("\nID creador: ").append(this.userId);
+        sb.append("\nCuerpo: ").append(this.body);        
+        return sb.toString();
     }
 
 }

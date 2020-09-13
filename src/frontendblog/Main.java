@@ -13,6 +13,6 @@ public class Main {
 
     public static void main(String[] args) {
         Raiz root = new Raiz();
-        root.mostrarTodo();
+        System.out.println(root);
     }
 }

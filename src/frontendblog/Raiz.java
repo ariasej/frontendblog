@@ -87,13 +87,15 @@ public class Raiz {
 
     }
 
-    public void mostrarTodo() {
+    @Override
+   public String toString(){
+        StringBuffer sb = new StringBuffer();
         for (Usuario user : users) {
-            System.out.println("--------------------------------------------------------------");
-            System.out.println(user);
-            System.out.println("--------------------------------------------------------------");
-            user.mostrarPosts();
+            sb.append("\n--------------------------------------------------------------\n");
+            sb.append(user);
+            sb.append(user.postUsuario());
         }
+        return sb.toString();
     }
 
 }

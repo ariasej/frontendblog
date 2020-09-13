@@ -62,13 +62,11 @@ public class Usuario {
             titulo = extraerContenido(findTitle.group(0), "\"");
             p.setTitle(titulo);
             allPosts.add(p);
-
         }
 
         Pattern userId = Pattern.compile("[\"]userId[\"][:]\\s(\\d{1,2})");
         Pattern id = Pattern.compile("[\"]id[\"][:]\\s(\\d{1,})");
-        Pattern body = Pattern.compile("[\"]body[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1"
-        );
+        Pattern body = Pattern.compile("[\"]body[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1");
 
         Matcher findId = id.matcher(data);
         Matcher findUserId = userId.matcher(data);
@@ -96,11 +94,9 @@ public class Usuario {
         }
 
         for (Post post : allPosts) {
-
             if (post.getUserId() == this.id) {
                 posts.add(post);
             }
-
         }
 
     }
@@ -115,23 +111,30 @@ public class Usuario {
                 break;
             }
         }
-
         target = target.replaceAll("\"", "");
         // System.out.println(target);
         return target;
     }
 
-    public String toString() {
-        System.out.println("Cantidad de posts de este usuario: " + posts.size());
-        return String.format("Nombre: %s id: %d%nUsername: %s%nemail: %s%n", this.getNombre(), this.getId(), this.getUserName(), this.getEmail());
+    @Override
+    public String toString() {     
+        StringBuffer sb = new StringBuffer();
+        sb.append("\nCantidad de posts de este usuario: ").append(posts.size());
+        sb.append("\nNombre: ").append(this.getNombre());
+        sb.append("\nID: ").append(this.getId());
+        sb.append("\nUsername: ").append(this.getUserName());
+        sb.append("\nE-mail: ").append(this.getEmail());
+        System.out.println(sb.toString());
+        return sb.toString();
     }
 
-    public void mostrarPosts() {
+    public String postUsuario() {
+        StringBuffer sb = new StringBuffer();
         for (Post post : posts) {
-            System.out.println("------------------");
-            System.out.println(post);
-            System.out.println("------------------");
+            sb.append(post);
+            sb.append("\n--------------------------------------------------------------");
         }
+        return sb.toString();
     }
 
     /**
