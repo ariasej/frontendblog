@@ -38,15 +38,13 @@ public class JSONFileReader {
         cadena = "";
         entrada = "";
         fileIterator = new BufferedReader(file);
-        
+
         while ((cadena = fileIterator.readLine()) != null) {
 
-     
             entrada += cadena + "\n";
         }
         file.close();
 
-        return entrada; 
+        return entrada;
     }
-
 }

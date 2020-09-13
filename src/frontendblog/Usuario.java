@@ -120,16 +120,10 @@ public class Usuario {
         // System.out.println(target);
         return target;
     }
-<<<<<<< HEAD
-    
-    public String toString(){
-        return String.format("NOMBRE: %s - %s\nCONTACTO: %s\n", this.nombre, this.email, this.numeroTelefonico);
-=======
 
     public String toString() {
         System.out.println("Cantidad de posts de este usuario: " + posts.size());
         return String.format("Nombre: %s id: %d%nUsername: %s%nemail: %s%n", this.getNombre(), this.getId(), this.getUserName(), this.getEmail());
->>>>>>> a40fc375cbc7ce572341b3732afa5df2e4472c9e
     }
 
     public void mostrarPosts() {

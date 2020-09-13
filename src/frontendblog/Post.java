@@ -26,9 +26,9 @@ class Post {
         this.body = body;
         inicializarComentarios();
     }
-    
-    public Post(){
-        comments = new ArrayList<>(); 
+
+    public Post() {
+        comments = new ArrayList<>();
     }
 
     /**
@@ -88,32 +88,13 @@ class Post {
     }
 
     private void inicializarComentarios() {
-      
-    }
 
-<<<<<<< HEAD
-    private Comment crearComentario(JSONObject comment) {
-        int postId = comment.getInt("postId");
-        int id = comment.getInt("id");
-        String name = comment.getString("name");
-        String email = comment.getString("email");
-        String body = comment.getString("body");
-
-        return new Comment(postId, id, name, email, body);
     }
 
     @Override
     public String toString() {
-        return String.format("Titulo:%s%nCUERPO%n%s%n", this.title, this.body);
+        return String.format("Titulo:%s ID CREADOR: %d%nCUERPO%n%s%n", this.title, this.userId, this.body);
 
-=======
-  
-    
-    @Override
-    public String toString(){
-        return String.format("Titulo:%s ID CREADOR: %d%nCUERPO%n%s%n",this.title,this.userId, this.body); 
-        
->>>>>>> a40fc375cbc7ce572341b3732afa5df2e4472c9e
     }
 
 }
