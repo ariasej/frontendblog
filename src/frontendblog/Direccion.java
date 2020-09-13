@@ -10,9 +10,10 @@ package frontendblog;
  * @author jony1
  */
 class Direccion {
-    private String calle; 
+
+    private String calle;
     private String suite;
-    private String ciudad; 
+    private String ciudad;
 
     /**
      * @return the calle
@@ -61,5 +62,5 @@ class Direccion {
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
-   
+
 }

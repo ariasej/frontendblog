@@ -70,7 +70,7 @@ public class Usuario {
     }
     
     public String toString(){
-        return String.format("NOMBRE: %s - %s%nCONTACTO: %s%n", this.nombre, this.email, this.numeroTelefonico);
+        return String.format("NOMBRE: %s - %s\nCONTACTO: %s\n", this.nombre, this.email, this.numeroTelefonico);
     }
     //METODO DE PRUEBA
     public void mostrarPosts(){

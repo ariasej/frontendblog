@@ -111,20 +111,19 @@ class Post {
     }
 
     private Comment crearComentario(JSONObject comment) {
-        int postId = comment.getInt("postId"); 
-        int id = comment.getInt("id"); 
-        String name = comment.getString("name"); 
-        String email = comment.getString("email"); 
-        String body = comment.getString("body"); 
-        
-        
-        return new Comment( postId,  id,  name,  email,  body); 
+        int postId = comment.getInt("postId");
+        int id = comment.getInt("id");
+        String name = comment.getString("name");
+        String email = comment.getString("email");
+        String body = comment.getString("body");
+
+        return new Comment(postId, id, name, email, body);
     }
-    
+
     @Override
-    public String toString(){
-        return String.format("Titulo:%s%nCUERPO%n%s%n",this.title, this.body); 
-        
+    public String toString() {
+        return String.format("Titulo:%s%nCUERPO%n%s%n", this.title, this.body);
+
     }
 
 }

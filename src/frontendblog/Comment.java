@@ -10,11 +10,12 @@ package frontendblog;
  * @author jony1
  */
 class Comment {
-    private int postId; 
-    private int id; 
-    private String name; 
-    private String email; 
-    private String body; 
+
+    private int postId;
+    private int id;
+    private String name;
+    private String email;
+    private String body;
 
     public Comment(int postId, int id, String name, String email, String body) {
         this.postId = postId;
@@ -93,8 +94,5 @@ class Comment {
     public void setBody(String body) {
         this.body = body;
     }
-    
-    
-    
-    
+
 }
