@@ -5,12 +5,7 @@
  */
 package frontendblog;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -30,6 +25,10 @@ class Post {
         this.title = title;
         this.body = body;
         inicializarComentarios();
+    }
+    
+    public Post(){
+        comments = new ArrayList<>(); 
     }
 
     /**
@@ -89,27 +88,10 @@ class Post {
     }
 
     private void inicializarComentarios() {
-        this.comments = new ArrayList<>();
-        String path = "src/Data/comments.json";
-        String data;
-
-        try {
-            data = new String(Files.readAllBytes(Paths.get(path)));
-            JSONArray comments = new JSONArray(data);
-
-            for (int i = 0; i < comments.length(); i++) {
-                JSONObject comment = comments.getJSONObject(i);
-
-                if (comment.getInt("postId") == this.id) {
-                    this.comments.add(crearComentario(comment));
-                }
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
+      
     }
 
+<<<<<<< HEAD
     private Comment crearComentario(JSONObject comment) {
         int postId = comment.getInt("postId");
         int id = comment.getInt("id");
@@ -124,6 +106,14 @@ class Post {
     public String toString() {
         return String.format("Titulo:%s%nCUERPO%n%s%n", this.title, this.body);
 
+=======
+  
+    
+    @Override
+    public String toString(){
+        return String.format("Titulo:%s ID CREADOR: %d%nCUERPO%n%s%n",this.title,this.userId, this.body); 
+        
+>>>>>>> a40fc375cbc7ce572341b3732afa5df2e4472c9e
     }
 
 }
