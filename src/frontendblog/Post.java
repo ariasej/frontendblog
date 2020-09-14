@@ -92,22 +92,30 @@ class Post {
         this.body = body;
     }
 
-    void inicializarComentarios() {
-      
+    void inicializarComentarios() {      
         for (Comment comment : Comment.levelizer) {
             if (comment.getPostId() == id) {
                 this.comments.add(comment);
             }
         }
-
     }
-
+    public String commentsPost() {
+        StringBuffer sb = new StringBuffer();
+        for (Comment comment : comments) {
+            sb.append("\n*************************************************");
+            sb.append(comment);
+        }
+        return sb.toString();
+    }
+    
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("\nTítulo: ").append(this.title);
+        sb.append("\nId post: ").append(this.id);
         sb.append("\nID creador: ").append(this.userId);
+        sb.append("\nTítulo: ").append(this.title);
         sb.append("\nCuerpo: ").append(this.body);
+        sb.append(this.commentsPost());
         return sb.toString();
     }
 

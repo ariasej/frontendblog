@@ -31,13 +31,11 @@ public class Usuario {
         this.nombre = nombre;
         this.userName = userName;
         this.email = email;
-
     }
 
     public Usuario() {
         posts = new ArrayList<>();
         js = new JSONFileReader("src/Data/posts.json");
-
     }
 
     public void inicializarPosts() {
@@ -101,26 +99,37 @@ public class Usuario {
                 posts.add(post);
             }
         }
+    }
 
+    public String extraerContenido(String target, String delete) {
+        int i = 0;
+        while (target.contains(delete)) {
+            target = target.substring(target.indexOf(delete) + 1);
+            i++;
+            if (i == 3) {
+                break;
+            }
+        }
+        target = target.replaceAll("\"", "");
+        return target;
     }
 
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append("\nCantidad de posts de este usuario: ").append(posts.size());
         sb.append("\nNombre: ").append(this.getNombre());
         sb.append("\nID: ").append(this.getId());
+        sb.append("\nCantidad de posts de este usuario: ").append(posts.size());
         sb.append("\nUsername: ").append(this.getUserName());
         sb.append("\nE-mail: ").append(this.getEmail());
-        System.out.println(sb.toString());
         return sb.toString();
     }
 
     public String postUsuario() {
         StringBuffer sb = new StringBuffer();
         for (Post post : posts) {
-            sb.append(post);
             sb.append("\n--------------------------------------------------------------");
+            sb.append(post);
         }
         return sb.toString();
     }

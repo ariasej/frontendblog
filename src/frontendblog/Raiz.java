@@ -26,15 +26,13 @@ public class Raiz {
         users = new ArrayList<>();
         Comment.initLevelizer();
         inicializarUsuarios();
-
     }
 
-    public void inicializarUsuarios() {
+    private void inicializarUsuarios() {
         String entrada = "";
 
         try {
             entrada = js.getJSONdataToString();
-            System.out.println(entrada);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -71,7 +69,6 @@ public class Raiz {
                 i++;
             }
             aux++;
-
         }
 
         i = 0;
@@ -85,7 +82,6 @@ public class Raiz {
             users.get(i).setEmail(buscarEmail.group(1));
             i++;
         }
-
     }
 
     @Override

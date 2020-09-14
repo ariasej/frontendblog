@@ -166,7 +166,14 @@ class Comment {
         this.body = body;
     }
 
+    @Override
     public String toString() {
-        return String.format("Comentario id: %d%n", id);
+        StringBuffer sb = new StringBuffer();
+        sb.append("\nID post: ").append(this.postId);
+        sb.append("\nID comentario: ").append(this.id);
+        sb.append("\nNombre: ").append(this.name);
+        sb.append("\nE-mail: ").append(this.email);
+        sb.append("\nCuerpo: ").append(this.body);
+        return sb.toString();
     }
 }
