@@ -42,7 +42,7 @@ public class Usuario {
 
     public void inicializarPosts() {
         String data = "";
-        ArrayList<Post> allPosts = new ArrayList<>();
+        ArrayList<Post> allPosts = new ArrayList<>(); // Leerá todos los posts del JSON para luego comparar cuál le pertene
 
         try {
             data = js.getJSONdataToString();
@@ -59,12 +59,12 @@ public class Usuario {
         String titulo;
         while (findTitle.find()) {
             p = new Post();
-            titulo = extraerContenido(findTitle.group(0), "\"");
+            titulo = JSONFileReader.extraerContenido(findTitle.group(0), "\"");
             p.setTitle(titulo);
             allPosts.add(p);
         }
 
-        Pattern userId = Pattern.compile("[\"]userId[\"][:]\\s(\\d{1,2})");
+        Pattern userId = Pattern.compile("[\"]userId[\"][:]\\s(\\d{1,})");
         Pattern id = Pattern.compile("[\"]id[\"][:]\\s(\\d{1,})");
         Pattern body = Pattern.compile("[\"]body[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1");
 
@@ -75,7 +75,9 @@ public class Usuario {
         int i = 0;
         while (findId.find()) {
             allPosts.get(i).setId(Integer.parseInt(findId.group(1)));
+
             i++;
+
         }
 
         i = 0;
@@ -88,36 +90,22 @@ public class Usuario {
         i = 0;
         String cuerpo;
         while (findBody.find()) {
-            cuerpo = extraerContenido(findBody.group(0), "\"");
+            cuerpo = JSONFileReader.extraerContenido(findBody.group(0), "\"");
             allPosts.get(i).setBody(cuerpo);
             i++;
         }
 
         for (Post post : allPosts) {
             if (post.getUserId() == this.id) {
+                post.inicializarComentarios();
                 posts.add(post);
             }
         }
 
     }
 
-    public String extraerContenido(String target, String delete) {
-        int i = 0;
-        while (target.contains(delete)) {
-            target = target.substring(target.indexOf(delete) + 1);
-            i++;
-            // System.out.println(target);
-            if (i == 3) {
-                break;
-            }
-        }
-        target = target.replaceAll("\"", "");
-        // System.out.println(target);
-        return target;
-    }
-
     @Override
-    public String toString() {     
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append("\nCantidad de posts de este usuario: ").append(posts.size());
         sb.append("\nNombre: ").append(this.getNombre());

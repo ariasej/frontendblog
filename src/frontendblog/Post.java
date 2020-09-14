@@ -5,7 +5,10 @@
  */
 package frontendblog;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -18,6 +21,7 @@ class Post {
     private String title;
     private String body;
     private ArrayList<Comment> comments;
+    private JSONFileReader js;
 
     public Post(int userId, int id, String title, String body) {
         this.userId = userId;
@@ -29,6 +33,7 @@ class Post {
 
     public Post() {
         comments = new ArrayList<>();
+        js = new JSONFileReader("src/Data/comments.json");
     }
 
     /**
@@ -87,7 +92,13 @@ class Post {
         this.body = body;
     }
 
-    private void inicializarComentarios() {
+    void inicializarComentarios() {
+      
+        for (Comment comment : Comment.levelizer) {
+            if (comment.getPostId() == id) {
+                this.comments.add(comment);
+            }
+        }
 
     }
 
@@ -96,7 +107,7 @@ class Post {
         StringBuffer sb = new StringBuffer();
         sb.append("\nTítulo: ").append(this.title);
         sb.append("\nID creador: ").append(this.userId);
-        sb.append("\nCuerpo: ").append(this.body);        
+        sb.append("\nCuerpo: ").append(this.body);
         return sb.toString();
     }
 

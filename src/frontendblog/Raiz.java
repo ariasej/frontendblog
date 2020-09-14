@@ -24,6 +24,7 @@ public class Raiz {
     public Raiz() {
         js = new JSONFileReader("src/Data/users.json");
         users = new ArrayList<>();
+        Comment.initLevelizer();
         inicializarUsuarios();
 
     }
@@ -88,7 +89,7 @@ public class Raiz {
     }
 
     @Override
-   public String toString(){
+    public String toString() {
         StringBuffer sb = new StringBuffer();
         for (Usuario user : users) {
             sb.append("\n--------------------------------------------------------------\n");

@@ -5,17 +5,25 @@
  */
 package frontendblog;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  *
  * @author jony1
  */
 class Comment {
 
+    private static final JSONFileReader js = new JSONFileReader("src/Data/comments.json");
+
     private int postId;
     private int id;
     private String name;
     private String email;
     private String body;
+    public static ArrayList<Comment> levelizer;
 
     public Comment(int postId, int id, String name, String email, String body) {
         this.postId = postId;
@@ -23,6 +31,69 @@ class Comment {
         this.name = name;
         this.email = email;
         this.body = body;
+    }
+
+    public Comment() {
+
+    }
+
+    public static void initLevelizer() {
+        String data = "";
+        levelizer = new ArrayList<>();
+
+        try {
+            data = js.getJSONdataToString();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        //CREAR EXPRESIONES REGULARES
+        Pattern title = Pattern.compile("[\"]name[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1"
+        );
+        Matcher findTitle = title.matcher(data);
+        Comment c;
+        String titulo;
+
+        while (findTitle.find()) {
+            c = new Comment();
+            titulo = JSONFileReader.extraerContenido(findTitle.group(0), "\"");
+            c.setName(titulo);
+            levelizer.add(c);
+        }
+
+        Pattern postId = Pattern.compile("[\"]postId[\"][:]\\s(\\d{1,})");
+        Pattern id = Pattern.compile("[\"]id[\"][:]\\s(\\d{1,})");
+        Pattern body = Pattern.compile("[\"]body[\"]:\\s([\"])(?:(?=(\\\\?))\\2.)*?\\1");
+        Pattern email = Pattern
+                .compile("[\"]email[\"][:]\\s[\"]([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*)[\"]");
+        Matcher findId = id.matcher(data);
+        Matcher findPostId = postId.matcher(data);
+        Matcher findBody = body.matcher(data);
+        Matcher findEmail = email.matcher(data);
+
+        int i = 0;
+        while (findId.find()) {
+            levelizer.get(i).setId(Integer.parseInt(findId.group(1)));
+            i++;
+        }
+        i = 0;
+        while (findEmail.find()) {
+            levelizer.get(i).setEmail(findEmail.group(1));
+            i++;
+        }
+
+        i = 0;
+        while (findPostId.find()) {
+            levelizer.get(i).setPostId(Integer.parseInt(findPostId.group(1)));
+            i++;
+        }
+
+        i = 0;
+        String cuerpo;
+        while (findBody.find()) {
+            cuerpo = JSONFileReader.extraerContenido(findBody.group(0), "\"");
+            levelizer.get(i).setBody(cuerpo);
+            i++;
+        }
     }
 
     /**
@@ -93,5 +164,9 @@ class Comment {
      */
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public String toString() {
+        return String.format("Comentario id: %d%n", id);
     }
 }

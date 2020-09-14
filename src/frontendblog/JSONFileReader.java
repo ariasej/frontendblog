@@ -47,4 +47,19 @@ public class JSONFileReader {
 
         return entrada;
     }
+
+    public static String extraerContenido(String target, String delete) {
+        int i = 0;
+        while (target.contains(delete)) {
+            target = target.substring(target.indexOf(delete) + 1);
+            i++;
+            // System.out.println(target);
+            if (i == 3) {
+                break;
+            }
+        }
+        target = target.replaceAll("\"", "");
+        // System.out.println(target);
+        return target;
+    }
 }
