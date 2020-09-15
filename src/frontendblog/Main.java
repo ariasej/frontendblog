@@ -8,42 +8,53 @@ package frontendblog;
 import java.util.ArrayList;
 
 /**
+ * Clase Main, realiza la ejecución del programa.
  *
- * @author jony1
+ * @author Enrique Niebles
  */
 public class Main {
 
     public static void main(String[] args) {
-        // Se realiza la lectura de datos del JSONFileReader
+        // Se realiza la lectura de datos del JSONFileReader.
         Datos datos = new Datos();
-        // Se crea el árbol.
+        // Se instancia un objeto arbol de la clase Arbol.
         Arbol arbol = new Arbol(datos);
+        // Se insertan llena el árbol con la información extraída del JSON.
         arbol.insertaNodos();
 
-        // Mostrar árbol.    
-        ArrayList<Nodo> preOrder = arbol.obtenerRecorridoPreOrden();
-        //for (Nodo nodo : preOrder) {
-        //    System.out.println(nodo.getInfo());
-        //}
+        // Se obtiene el recorrido del árbol y se imprime la información de cada nodo.    
+        ArrayList<Nodo> recorrido = arbol.recorrerArbol();
+        for (Nodo nodo : recorrido) {
+            System.out.println(nodo.getInfo());
+        }
+        
+        System.out.println("\n========================================================================");
+        System.out.println("========================================================================\n");
 
+        // Se obtiene el nodo raíz del árbol.
         Nodo raiz = arbol.getRaiz();
-        int codigo = 10;
-        if (codigo > datos.getUsers().size() || codigo <= 0) {
-            System.out.println("El usuario con ID " + codigo + " no ha sido encontrado.");
+        // Se introduce el código del usuario a buscar.
+        int userID = 5;
+        // Se verifica que sea un usuario válido.
+        if (userID > datos.getUsers().size() || userID <= 0) {
+            System.out.println("El usuario con ID " + userID + " no ha sido encontrado.");
         } else {
-            Nodo usuario = arbol.findNodo(raiz, raiz.getHijos().get(codigo - 1).getInfo());
-            System.out.println("Imprimiendo información del usuario: " + codigo);
+            // Se obtiene el nodo que contiene la información de dicho usuario.
+            Nodo usuario = arbol.buscarNodo(raiz, raiz.getHijos().get(userID - 1).getInfo());
+            System.out.println("Imprimiendo información del usuario: " + userID);
             System.out.println(usuario.getInfo());
-            System.out.println("\n***********************************************************");
+            System.out.println("\n*************************************************************");
             // Mostar todos los post del usuario.
             for (Nodo post : usuario.getHijos()) {
                 System.out.println(post.getInfo());
             }
             System.out.println("\n*************************************************************");
-            // Mostrar post en específico y sus comentarios.
-            int postID = 1;
-            Nodo usrPost = arbol.findNodo(usuario, usuario.getHijos().get(postID - 1).getInfo());
+            // Se introduce el código del post a buscar.
+            int postID = 2;
+            // Se obtiene el nodo que contiene el post buscado.
+            Nodo usrPost = arbol.buscarNodo(usuario, usuario.getHijos().get(postID - 1).getInfo());
             System.out.println(usrPost.getInfo());
+            // Se imprimen los comentarios del post dado.
             for (Nodo comment : usrPost.getHijos()) {
                 System.out.println(comment.getInfo());
             }

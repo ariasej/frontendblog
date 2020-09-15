@@ -8,48 +8,49 @@ package frontendblog;
 import java.util.ArrayList;
 
 /**
- * A node of any type. A node contains a dato and links to it's hijos and it's
- * padre.
+ * Clase Nodo que contiene la información de un nodo y sus hijos.
  *
- * @param Stringhe class type of the node
+ * @author Enrique Niebles
  */
 public class Nodo {
 
     private String info;
     private ArrayList<Nodo> hijos;
-    private Nodo padre;
 
+    /**
+     * Constructor de la clase Nodo, asigna la info y crea el ArrayList que
+     * contendrá los hijos del nodo.
+     *
+     * @param dato Información que almacena el nodo.
+     */
     public Nodo(String dato) {
         this.info = dato;
         this.hijos = new ArrayList<Nodo>();
     }
 
     /**
-     *
-     * Add a child to this node.
-     *
-     * @param hijo child node
-     */
-    public void insertarHijo(Nodo hijo) {
-        hijo.setPadre(this);
+    * Permite la inserción de un hijo al nodo. 
+    * 
+    * @param hijo 
+    */
+    public void addHijo(Nodo hijo) {
         hijos.add(hijo);
     }
 
-    public void setHijos(ArrayList<Nodo> hijos) {
-        for (Nodo hijo : hijos) {
-            hijo.setPadre(this);
-        }
-        this.hijos = hijos;
-    }
-
-    public void setPadre(Nodo padre) {
-        this.padre = padre;
-    }
-
+    /**
+     * Método para obtener la información del nodo.
+     * 
+     * @return la infomación del nodo.
+     */
     public String getInfo() {
         return this.info;
     }
 
+    /**
+     * Método para obtener los hijos del nodo.
+     * 
+     * @return ArrayList con los hijos de un nodo.
+     */
     public ArrayList<Nodo> getHijos() {
         return this.hijos;
     }

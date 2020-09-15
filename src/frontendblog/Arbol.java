@@ -8,63 +8,74 @@ package frontendblog;
 import java.util.ArrayList;
 
 /**
+ * Clase Arbol que contiene la estructura del árbol y sus métodos.
  *
  * @author Enrique Niebles
  */
 public class Arbol {
 
-    private Nodo raiz;
-    private Datos datos;
+    final private Nodo raiz;
+    final private Datos DATOS;
 
     /**
-     * Initialize a tree with the specified root node.
+     * Se inicializa la clase árbol.
      *
-     * @param root The root node of the tree
+     * @param datos Contiene la información extraída de los JSON.
      */
     public Arbol(Datos datos) {
         this.raiz = new Nodo("");
-        this.datos = datos;
+        this.DATOS = datos;
     }
 
-    //Insercion de un elemento en el arbol
+    /**
+     * Se inserta la información extraída de los JSON en el árbol.
+     *
+     * @see insertarHijo()
+     */
     public void insertaNodos() {
         // Insertar Usuarios al árbol.
-        for (Usuario usr : datos.getUsers()) {
+        for (Usuario usr : DATOS.getUsers()) {
             Nodo nodoUsr = new Nodo(usr.toString());
-            raiz.insertarHijo(nodoUsr);
+            raiz.addHijo(nodoUsr);
             // Insertar Posts del usuario.
             for (Post post : usr.getPosts()) {
                 Nodo nodoPost = new Nodo(post.toString());
-                nodoUsr.insertarHijo(nodoPost);
+                nodoUsr.addHijo(nodoPost);
                 // Insertar Comentarios del Post.
                 for (Comment comment : post.getComments()) {
                     Nodo nodoComment = new Nodo(comment.toString());
-                    nodoPost.insertarHijo(nodoComment);
+                    nodoPost.addHijo(nodoComment);
                 }
             }
         }
     }
 
     /**
-     * Get the root node of the tree
+     * Se obtiene el nodo Raíz del árbol.
      *
-     * @return the root node.
+     * @return la raíz del nodo.
      */
     public Nodo getRaiz() {
         return raiz;
     }
 
-    public Nodo findNodo(Nodo node, String keyNodo) {
-        if (node == null) {
+    /**
+     * Se busca la información en el árbol, dado un nodo.
+     * @param nodo Nodo donde se realiza la búsqueda.
+     * @param informacion Información a buscar en el nodo.
+     * @return la raíz del nodo.
+     */
+    public Nodo buscarNodo(Nodo nodo, String informacion) {
+        if (nodo == null) {
             return null;
-        }
-        if (node.getInfo().equals(keyNodo)) {
-            return node;
+        } else if (nodo.getInfo().equals(informacion)) {
+            return nodo;
         } else {
-            Nodo cnode = null;
-            for (Nodo child : node.getHijos()) {
-                if ((cnode = findNodo(child, keyNodo)) != null) {
-                    return cnode;
+            Nodo nodoInfo = null;
+            for (Nodo hijo : nodo.getHijos()) {
+                nodoInfo = buscarNodo(hijo, informacion);
+                if (nodoInfo != null) {
+                    return nodoInfo;
                 }
             }
         }
@@ -73,33 +84,26 @@ public class Arbol {
 
     /**
      *
-     * Get the list of nodes arranged by the pre-order traversal of the tree.
+     * Se obtiene un ArrayList de nodos obtenidos al recorrer el árbol.
      *
-     * @return The list of nodes in the tree, arranged in the pre-order
+     * @return preOrden ArrayList con los Nodos del árbol.
      */
-    public ArrayList<Nodo> obtenerRecorridoPreOrden() {
-        ArrayList<Nodo> preOrden = new ArrayList<Nodo>();
-        mostrarPreOrden(raiz, preOrden);
-        return preOrden;
+    public ArrayList<Nodo> recorrerArbol() {
+        ArrayList<Nodo> recorrido = new ArrayList();
+        mostrarRecorrido(raiz, recorrido);
+        return recorrido;
     }
-
-    private void mostrarPreOrden(Nodo node, ArrayList<Nodo> preOrden) {
-        preOrden.add(node);
-        for (Nodo child : node.getHijos()) {
-            mostrarPreOrden(child, preOrden);
+    
+    /**
+     * Recorre el árbol, nodo por nodo, y guarda su información.
+     * 
+     * @param nodo Nodo a añadir en el ArrayList.
+     * @param recorrido  ArrayList con la información de los nodos.
+     */
+    private void mostrarRecorrido(Nodo nodo, ArrayList<Nodo> recorrido) {
+        recorrido.add(nodo);
+        for (Nodo hijo : nodo.getHijos()) {
+            mostrarRecorrido(hijo, recorrido);
         }
-    }
-
-    public ArrayList<Nodo> getPostOrderTraversal() {
-        ArrayList<Nodo> postOrder = new ArrayList<Nodo>();
-        buildPostOrder(raiz, postOrder);
-        return postOrder;
-    }
-
-    private void buildPostOrder(Nodo node, ArrayList<Nodo> postOrder) {
-        for (Nodo child : node.getHijos()) {
-            buildPostOrder(child, postOrder);
-        }
-        postOrder.add(node);
     }
 }
