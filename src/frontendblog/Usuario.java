@@ -7,8 +7,6 @@ package frontendblog;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -122,15 +120,6 @@ public class Usuario {
         sb.append("\nCantidad de posts de este usuario: ").append(posts.size());
         sb.append("\nUsername: ").append(this.getUserName());
         sb.append("\nE-mail: ").append(this.getEmail());
-        return sb.toString();
-    }
-
-    public String postUsuario() {
-        StringBuffer sb = new StringBuffer();
-        for (Post post : posts) {
-            sb.append("\n--------------------------------------------------------------");
-            sb.append(post);
-        }
         return sb.toString();
     }
 

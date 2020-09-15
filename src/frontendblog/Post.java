@@ -5,10 +5,7 @@
  */
 package frontendblog;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -98,14 +95,6 @@ class Post {
                 this.comments.add(comment);
             }
         }
-    }
-    public String commentsPost() {
-        StringBuffer sb = new StringBuffer();
-        for (Comment comment : comments) {
-            sb.append("\n*************************************************");
-            sb.append(comment);
-        }
-        return sb.toString();
     }
     
     @Override
