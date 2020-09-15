@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author Enrique Niebles
  */
 public class Arbol {
+
     private Nodo raiz;
     private Datos datos;
 
@@ -24,7 +25,7 @@ public class Arbol {
         this.raiz = new Nodo("");
         this.datos = datos;
     }
-    
+
     //Insercion de un elemento en el arbol
     public void insertaNodos() {
         // Insertar Usuarios al árbol.
@@ -32,26 +33,16 @@ public class Arbol {
             Nodo nodoUsr = new Nodo(usr.toString());
             raiz.insertarHijo(nodoUsr);
             // Insertar Posts del usuario.
-            for (Post post : usr.getPosts()) {                
+            for (Post post : usr.getPosts()) {
                 Nodo nodoPost = new Nodo(post.toString());
-                nodoUsr.insertarHijo(nodoPost); 
+                nodoUsr.insertarHijo(nodoPost);
                 // Insertar Comentarios del Post.
-                for (Comment comment : post.getComments()) {                
+                for (Comment comment : post.getComments()) {
                     Nodo nodoComment = new Nodo(comment.toString());
-                    nodoPost.insertarHijo(nodoComment);                     
+                    nodoPost.insertarHijo(nodoComment);
                 }
             }
         }
-    }
-
-    /**
-     * Checks if the tree is empty (root node is null)
-     *
-     * @return <code>true</code> if the tree is empty,
-     * <code>false</code> otherwise.
-     */
-    public boolean isEmpty() {
-        return raiz == null;
     }
 
     /**
@@ -63,39 +54,34 @@ public class Arbol {
         return raiz;
     }
 
-    /**
-     * Set the root node of the tree. Replaces existing root node.
-     *
-     * @param raiz The root node to replace the existing root node with.
-     */
-    public void setRaiz(Nodo raiz) {
-        this.raiz = raiz;
-    }
-
-    private boolean find(Nodo node, String keyNodo) {
+    public boolean find(Nodo node, String keyNodo) {
         boolean res = false;
-        if (node.getDato().equals(keyNodo))
+        if (node.getInfo().equals(keyNodo)) {
             return true;
-
-        else {
-            for (Nodo child : node.getHijos())
-                if (find(child, keyNodo))
+        } else {
+            for (Nodo child : node.getHijos()) {
+                if (find(child, keyNodo)) {
                     res = true;
+                }
+            }
         }
 
         return res;
     }
 
-    private Nodo findNodo(Nodo node, String keyNodo) {
-        if (node == null)
+    public Nodo findNodo(Nodo node, String keyNodo) {
+        if (node == null) {
             return null;
-        if (node.getDato().equals(keyNodo))
+        }
+        if (node.getInfo().equals(keyNodo)) {
             return node;
-        else {
+        } else {
             Nodo cnode = null;
-            for (Nodo child : node.getHijos())
-                if ((cnode = findNodo(child, keyNodo)) != null)
+            for (Nodo child : node.getHijos()) {
+                if ((cnode = findNodo(child, keyNodo)) != null) {
                     return cnode;
+                }
+            }
         }
         return null;
     }
@@ -118,11 +104,13 @@ public class Arbol {
             mostrarPreOrden(child, preOrden);
         }
     }
+
     public ArrayList<Nodo> getPostOrderTraversal() {
         ArrayList<Nodo> postOrder = new ArrayList<Nodo>();
         buildPostOrder(raiz, postOrder);
         return postOrder;
     }
+
     private void buildPostOrder(Nodo node, ArrayList<Nodo> postOrder) {
         for (Nodo child : node.getHijos()) {
             buildPostOrder(child, postOrder);

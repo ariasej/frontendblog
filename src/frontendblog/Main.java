@@ -6,6 +6,7 @@
 package frontendblog;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -19,11 +20,32 @@ public class Main {
         // Se crea el árbol.
         Arbol arbol = new Arbol(datos);
         arbol.insertaNodos();
+        Scanner sc = new Scanner(System.in);
+        int codigo;
 
         // Get the pre-order traversal        
         ArrayList<Nodo> preOrder = arbol.obtenerRecorridoPreOrden();
-        for (Nodo nodo : preOrder) {
-            System.out.println(nodo.getDato());
+        //for (Nodo nodo : preOrder) {
+        //    System.out.println(nodo.getInfo());
+        //}
+        
+        Nodo raiz = arbol.getRaiz();
+        System.out.print("Digite el código del usuario: ");
+        codigo = sc.nextInt();
+        Usuario usrFind = null;
+        for (Usuario user : datos.getUsers()) {
+            if (user.getId() == codigo)
+                usrFind = user;
+        }        
+        try{
+            Nodo nodoUsr = arbol.findNodo(raiz, usrFind.toString());
+            System.out.println(nodoUsr.getInfo());
+            for (Nodo hijo : nodoUsr.getHijos()) {
+                System.out.println(hijo.getInfo());
+            }
+        } catch (java.lang.NullPointerException e){
+            System.out.println("No encontrado.");
         }
+        
     }
 }

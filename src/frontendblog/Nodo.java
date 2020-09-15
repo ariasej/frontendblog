@@ -15,17 +15,17 @@ import java.util.ArrayList;
  */
 public class Nodo {
 
-    private String dato;
+    private String info;
     private ArrayList<Nodo> hijos;
     private Nodo padre;
 
     public Nodo(String dato) {
-        this.dato = dato;
+        this.info = dato;
         this.hijos = new ArrayList<Nodo>();
     }
 
     public Nodo(Nodo nodo) {
-        this.dato = nodo.getDato();
+        this.info = nodo.getInfo();
         hijos = new ArrayList<Nodo>();
     }
 
@@ -40,25 +40,6 @@ public class Nodo {
         hijos.add(hijo);
     }
 
-    /**
-     * Remove all hijos of this node.
-     */
-    public void eliminarHijos() {
-        this.hijos.clear();
-    }
-
-    /**
-     * Remove given child of this node.
-     *
-     * @param eliminarHijo the child node to remove.
-     * @return <code>true</code> if the given node was a child of this node and
-     * was deleted, <code>false</code> otherwise.
-     */
-    public boolean eliminarHijo(Nodo hijo) {
-        ArrayList<Nodo> list = getHijos();
-        return list.remove(hijo);
-    }
-
     public void setHijos(ArrayList<Nodo> hijos) {
         for (Nodo hijo : hijos) {
             hijo.setPadre(this);
@@ -66,8 +47,8 @@ public class Nodo {
         this.hijos = hijos;
     }
 
-    public void setDato(String dato) {
-        this.dato = dato;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public void setPadre(Nodo padre) {
@@ -78,8 +59,8 @@ public class Nodo {
         return this.padre;
     }
 
-    public String getDato() {
-        return this.dato;
+    public String getInfo() {
+        return this.info;
     }
 
     public ArrayList<Nodo> getHijos() {
