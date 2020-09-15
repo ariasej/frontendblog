@@ -29,17 +29,8 @@ public class Nodo {
     }
 
     /**
-    * Permite la inserción de un hijo al nodo. 
-    * 
-    * @param hijo 
-    */
-    public void addHijo(Nodo hijo) {
-        hijos.add(hijo);
-    }
-
-    /**
      * Método para obtener la información del nodo.
-     * 
+     *
      * @return la infomación del nodo.
      */
     public String getInfo() {
@@ -47,8 +38,17 @@ public class Nodo {
     }
 
     /**
+     * Permite la inserción de un hijo al nodo.
+     *
+     * @param hijo
+     */
+    public void setHijo(Nodo hijo) {
+        hijos.add(hijo);
+    }
+
+    /**
      * Método para obtener los hijos del nodo.
-     * 
+     *
      * @return ArrayList con los hijos de un nodo.
      */
     public ArrayList<Nodo> getHijos() {

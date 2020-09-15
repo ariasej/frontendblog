@@ -27,7 +27,7 @@ public class Main {
         for (Nodo nodo : recorrido) {
             System.out.println(nodo.getInfo());
         }
-        
+
         System.out.println("\n========================================================================");
         System.out.println("========================================================================\n");
 

@@ -36,15 +36,15 @@ public class Arbol {
         // Insertar Usuarios al árbol.
         for (Usuario usr : DATOS.getUsers()) {
             Nodo nodoUsr = new Nodo(usr.toString());
-            raiz.addHijo(nodoUsr);
+            raiz.setHijo(nodoUsr);
             // Insertar Posts del usuario.
             for (Post post : usr.getPosts()) {
                 Nodo nodoPost = new Nodo(post.toString());
-                nodoUsr.addHijo(nodoPost);
+                nodoUsr.setHijo(nodoPost);
                 // Insertar Comentarios del Post.
                 for (Comment comment : post.getComments()) {
                     Nodo nodoComment = new Nodo(comment.toString());
-                    nodoPost.addHijo(nodoComment);
+                    nodoPost.setHijo(nodoComment);
                 }
             }
         }
@@ -61,6 +61,7 @@ public class Arbol {
 
     /**
      * Se busca la información en el árbol, dado un nodo.
+     *
      * @param nodo Nodo donde se realiza la búsqueda.
      * @param informacion Información a buscar en el nodo.
      * @return la raíz del nodo.
@@ -93,12 +94,12 @@ public class Arbol {
         mostrarRecorrido(raiz, recorrido);
         return recorrido;
     }
-    
+
     /**
      * Recorre el árbol, nodo por nodo, y guarda su información.
-     * 
+     *
      * @param nodo Nodo a añadir en el ArrayList.
-     * @param recorrido  ArrayList con la información de los nodos.
+     * @param recorrido ArrayList con la información de los nodos.
      */
     private void mostrarRecorrido(Nodo nodo, ArrayList<Nodo> recorrido) {
         recorrido.add(nodo);
