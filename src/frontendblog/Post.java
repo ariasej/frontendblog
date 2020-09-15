@@ -115,8 +115,11 @@ class Post {
         sb.append("\nID creador: ").append(this.userId);
         sb.append("\nTítulo: ").append(this.title);
         sb.append("\nCuerpo: ").append(this.body);
-        sb.append(this.commentsPost());
         return sb.toString();
     }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }   
 
 }

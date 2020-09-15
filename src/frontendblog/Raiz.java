@@ -90,9 +90,12 @@ public class Raiz {
         for (Usuario user : users) {
             sb.append("\n--------------------------------------------------------------\n");
             sb.append(user);
-            sb.append(user.postUsuario());
         }
         return sb.toString();
+    }
+
+    public ArrayList<Usuario> getUsers() {
+        return users;
     }
 
 }
