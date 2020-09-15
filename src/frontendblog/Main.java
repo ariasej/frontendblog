@@ -5,7 +5,7 @@
  */
 package frontendblog;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,33 +14,14 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        Raiz raiz = new Raiz();
-        
-        // Se crea la raíz del árbol, con un dato vacío.
-        Nodo root = new Nodo("");
-        
-        // Insertar Usuarios al árbol.
-        for (Usuario usr : raiz.getUsers()) {
-            Nodo nodoUsr = new Nodo(usr.toString());
-            root.insertarHijo(nodoUsr);
-            // Insertar Posts del usuario.
-            for (Post post : usr.getPosts()) {                
-                Nodo nodoPost = new Nodo(post.toString());
-                nodoUsr.insertarHijo(nodoPost); 
-                // Insertar Comentarios del Post.
-                for (Comment comment : post.getComments()) {                
-                    Nodo nodoComment = new Nodo(comment.toString());
-                    nodoPost.insertarHijo(nodoComment);                     
-                }
-            }
-        }        
-        
-        // Create a tree, providing the root node
-        Arbol tree = new Arbol(root);
+        // Se realiza la lectura de datos del JSONFileReader
+        Datos datos = new Datos();             
+        // Se crea el árbol.
+        Arbol arbol = new Arbol(datos);
+        arbol.insertaNodos();
 
-        // Get the pre-order traversal
-        
-        List<Nodo> preOrder = tree.getPostOrderTraversal();
+        // Get the pre-order traversal        
+        ArrayList<Nodo> preOrder = arbol.obtenerRecorridoPreOrden();
         for (Nodo nodo : preOrder) {
             System.out.println(nodo.getDato());
         }

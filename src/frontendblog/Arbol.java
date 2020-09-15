@@ -13,14 +13,35 @@ import java.util.ArrayList;
  */
 public class Arbol {
     private Nodo raiz;
+    private Datos datos;
 
     /**
      * Initialize a tree with the specified root node.
      *
      * @param root The root node of the tree
      */
-    public Arbol(Nodo root) {
-        this.raiz = root;
+    public Arbol(Datos datos) {
+        this.raiz = new Nodo("");
+        this.datos = datos;
+    }
+    
+    //Insercion de un elemento en el arbol
+    public void insertaNodos() {
+        // Insertar Usuarios al árbol.
+        for (Usuario usr : datos.getUsers()) {
+            Nodo nodoUsr = new Nodo(usr.toString());
+            raiz.insertarHijo(nodoUsr);
+            // Insertar Posts del usuario.
+            for (Post post : usr.getPosts()) {                
+                Nodo nodoPost = new Nodo(post.toString());
+                nodoUsr.insertarHijo(nodoPost); 
+                // Insertar Comentarios del Post.
+                for (Comment comment : post.getComments()) {                
+                    Nodo nodoComment = new Nodo(comment.toString());
+                    nodoPost.insertarHijo(nodoComment);                     
+                }
+            }
+        }
     }
 
     /**

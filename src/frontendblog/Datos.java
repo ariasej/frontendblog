@@ -15,13 +15,13 @@ import java.util.regex.Pattern;
  *
  * @author jony1
  */
-public class Raiz {
+public class Datos {
 
     private ArrayList<Usuario> users;
 
     private JSONFileReader js;
 
-    public Raiz() {
+    public Datos() {
         js = new JSONFileReader("src/Data/users.json");
         users = new ArrayList<>();
         Comment.initLevelizer();

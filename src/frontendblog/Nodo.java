@@ -6,7 +6,6 @@
 package frontendblog;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A node of any type. A node contains a dato and links to it's hijos and it's
@@ -17,7 +16,7 @@ import java.util.List;
 public class Nodo {
 
     private String dato;
-    private List<Nodo> hijos;
+    private ArrayList<Nodo> hijos;
     private Nodo padre;
 
     public Nodo(String dato) {
@@ -56,11 +55,11 @@ public class Nodo {
      * was deleted, <code>false</code> otherwise.
      */
     public boolean eliminarHijo(Nodo hijo) {
-        List<Nodo> list = getHijos();
+        ArrayList<Nodo> list = getHijos();
         return list.remove(hijo);
     }
 
-    public void setHijos(List<Nodo> hijos) {
+    public void setHijos(ArrayList<Nodo> hijos) {
         for (Nodo hijo : hijos) {
             hijo.setPadre(this);
         }
@@ -83,7 +82,7 @@ public class Nodo {
         return this.dato;
     }
 
-    public List<Nodo> getHijos() {
+    public ArrayList<Nodo> getHijos() {
         return this.hijos;
     }
 
