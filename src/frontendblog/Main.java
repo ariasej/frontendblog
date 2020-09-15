@@ -17,31 +17,31 @@ public class Main {
         Raiz raiz = new Raiz();
         
         // Se crea la raíz del árbol, con un dato vacío.
-        Nodo<String> root = new Nodo<>("");
+        Nodo root = new Nodo("");
         
         // Insertar Usuarios al árbol.
         for (Usuario usr : raiz.getUsers()) {
-            Nodo<String> nodoUsr = new Nodo<>(usr.toString());
+            Nodo nodoUsr = new Nodo(usr.toString());
             root.insertarHijo(nodoUsr);
             // Insertar Posts del usuario.
             for (Post post : usr.getPosts()) {                
-                Nodo<String> nodoPost = new Nodo<>(post.toString());
+                Nodo nodoPost = new Nodo(post.toString());
                 nodoUsr.insertarHijo(nodoPost); 
                 // Insertar Comentarios del Post.
                 for (Comment comment : post.getComments()) {                
-                    Nodo<String> nodoComment = new Nodo<>(comment.toString());
+                    Nodo nodoComment = new Nodo(comment.toString());
                     nodoPost.insertarHijo(nodoComment);                     
                 }
             }
         }        
         
         // Create a tree, providing the root node
-        Arbol<String> tree = new Arbol<String>(root);
+        Arbol tree = new Arbol(root);
 
         // Get the pre-order traversal
         
-        List<Nodo<String>> preOrder = tree.obtenerRecorridoPreOrden();
-        for (Nodo<String> nodo : preOrder) {
+        List<Nodo> preOrder = tree.getPostOrderTraversal();
+        for (Nodo nodo : preOrder) {
             System.out.println(nodo.getDato());
         }
     }

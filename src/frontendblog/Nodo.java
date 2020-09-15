@@ -1,6 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
+ * Stringo change this license header, choose License Headers in Project Properties.
+ * Stringo change this template file, choose Stringools | Stringemplates
  * and open the template in the editor.
  */
 package frontendblog;
@@ -12,22 +12,22 @@ import java.util.List;
  * A node of any type. A node contains a dato and links to it's hijos and it's
  * padre.
  *
- * @param <T> The class type of the node
+ * @param  Stringhe class type of the node
  */
-public class Nodo<T> {
+public class Nodo {
 
-    private T dato;
-    private List<Nodo<T>> hijos;
-    private Nodo<T> padre;
+    private String dato;
+    private List<Nodo> hijos;
+    private Nodo padre;
 
-    public Nodo(T dato) {
+    public Nodo(String dato) {
         this.dato = dato;
-        this.hijos = new ArrayList<Nodo<T>>();
+        this.hijos = new ArrayList<Nodo>();
     }
 
-    public Nodo(Nodo<T> nodo) {
+    public Nodo(Nodo nodo) {
         this.dato = nodo.getDato();
-        hijos = new ArrayList<Nodo<T>>();
+        hijos = new ArrayList<Nodo>();
     }
 
     /**
@@ -36,7 +36,7 @@ public class Nodo<T> {
      *
      * @param hijo child node
      */
-    public void insertarHijo(Nodo<T> hijo) {
+    public void insertarHijo(Nodo hijo) {
         hijo.setPadre(this);
         hijos.add(hijo);
     }
@@ -55,39 +55,39 @@ public class Nodo<T> {
      * @return <code>true</code> if the given node was a child of this node and
      * was deleted, <code>false</code> otherwise.
      */
-    public boolean eliminarHijo(Nodo<T> hijo) {
-        List<Nodo<T>> list = getHijos();
+    public boolean eliminarHijo(Nodo hijo) {
+        List<Nodo> list = getHijos();
         return list.remove(hijo);
     }
 
-    public void setHijos(List<Nodo<T>> hijos) {
-        for (Nodo<T> hijo : hijos) {
+    public void setHijos(List<Nodo> hijos) {
+        for (Nodo hijo : hijos) {
             hijo.setPadre(this);
         }
         this.hijos = hijos;
     }
 
-    public void setDato(T dato) {
+    public void setDato(String dato) {
         this.dato = dato;
     }
 
-    public void setPadre(Nodo<T> padre) {
+    public void setPadre(Nodo padre) {
         this.padre = padre;
     }
 
-    public Nodo<T> getPadre() {
+    public Nodo getPadre() {
         return this.padre;
     }
 
-    public T getDato() {
+    public String getDato() {
         return this.dato;
     }
 
-    public List<Nodo<T>> getHijos() {
+    public List<Nodo> getHijos() {
         return this.hijos;
     }
 
-    public Nodo<T> obtenerHijoEn(int i) {
+    public Nodo obtenerHijoEn(int i) {
         return hijos.get(i);
     }
 }

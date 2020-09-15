@@ -11,15 +11,15 @@ import java.util.ArrayList;
  *
  * @author Enrique Niebles
  */
-public class Arbol<T> {
-    private Nodo<T> raiz;
+public class Arbol {
+    private Nodo raiz;
 
     /**
      * Initialize a tree with the specified root node.
      *
      * @param root The root node of the tree
      */
-    public Arbol(Nodo<T> root) {
+    public Arbol(Nodo root) {
         this.raiz = root;
     }
 
@@ -38,7 +38,7 @@ public class Arbol<T> {
      *
      * @return the root node.
      */
-    public Nodo<T> getRaiz() {
+    public Nodo getRaiz() {
         return raiz;
     }
 
@@ -47,17 +47,17 @@ public class Arbol<T> {
      *
      * @param raiz The root node to replace the existing root node with.
      */
-    public void setRaiz(Nodo<T> raiz) {
+    public void setRaiz(Nodo raiz) {
         this.raiz = raiz;
     }
 
-    private boolean find(Nodo<T> node, T keyNodo) {
+    private boolean find(Nodo node, String keyNodo) {
         boolean res = false;
         if (node.getDato().equals(keyNodo))
             return true;
 
         else {
-            for (Nodo<T> child : node.getHijos())
+            for (Nodo child : node.getHijos())
                 if (find(child, keyNodo))
                     res = true;
         }
@@ -65,14 +65,14 @@ public class Arbol<T> {
         return res;
     }
 
-    private Nodo<T> findNodo(Nodo<T> node, T keyNodo) {
+    private Nodo findNodo(Nodo node, String keyNodo) {
         if (node == null)
             return null;
         if (node.getDato().equals(keyNodo))
             return node;
         else {
-            Nodo<T> cnode = null;
-            for (Nodo<T> child : node.getHijos())
+            Nodo cnode = null;
+            for (Nodo child : node.getHijos())
                 if ((cnode = findNodo(child, keyNodo)) != null)
                     return cnode;
         }
@@ -85,16 +85,27 @@ public class Arbol<T> {
      *
      * @return The list of nodes in the tree, arranged in the pre-order
      */
-    public ArrayList<Nodo<T>> obtenerRecorridoPreOrden() {
-        ArrayList<Nodo<T>> preOrden = new ArrayList<Nodo<T>>();
+    public ArrayList<Nodo> obtenerRecorridoPreOrden() {
+        ArrayList<Nodo> preOrden = new ArrayList<Nodo>();
         mostrarPreOrden(raiz, preOrden);
         return preOrden;
     }
 
-    private void mostrarPreOrden(Nodo<T> node, ArrayList<Nodo<T>> preOrden) {
+    private void mostrarPreOrden(Nodo node, ArrayList<Nodo> preOrden) {
         preOrden.add(node);
-        for (Nodo<T> child : node.getHijos()) {
+        for (Nodo child : node.getHijos()) {
             mostrarPreOrden(child, preOrden);
         }
+    }
+    public ArrayList<Nodo> getPostOrderTraversal() {
+        ArrayList<Nodo> postOrder = new ArrayList<Nodo>();
+        buildPostOrder(raiz, postOrder);
+        return postOrder;
+    }
+    private void buildPostOrder(Nodo node, ArrayList<Nodo> postOrder) {
+        for (Nodo child : node.getHijos()) {
+            buildPostOrder(child, postOrder);
+        }
+        postOrder.add(node);
     }
 }
