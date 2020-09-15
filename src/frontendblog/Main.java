@@ -6,7 +6,6 @@
 package frontendblog;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
@@ -16,36 +15,40 @@ public class Main {
 
     public static void main(String[] args) {
         // Se realiza la lectura de datos del JSONFileReader
-        Datos datos = new Datos();             
+        Datos datos = new Datos();
         // Se crea el árbol.
         Arbol arbol = new Arbol(datos);
         arbol.insertaNodos();
-        Scanner sc = new Scanner(System.in);
-        int codigo;
 
-        // Get the pre-order traversal        
+        // Mostrar árbol.    
         ArrayList<Nodo> preOrder = arbol.obtenerRecorridoPreOrden();
         //for (Nodo nodo : preOrder) {
         //    System.out.println(nodo.getInfo());
         //}
-        
+
         Nodo raiz = arbol.getRaiz();
-        System.out.print("Digite el código del usuario: ");
-        codigo = sc.nextInt();
-        Usuario usrFind = null;
-        for (Usuario user : datos.getUsers()) {
-            if (user.getId() == codigo)
-                usrFind = user;
-        }        
-        try{
-            Nodo nodoUsr = arbol.findNodo(raiz, usrFind.toString());
-            System.out.println(nodoUsr.getInfo());
-            for (Nodo hijo : nodoUsr.getHijos()) {
-                System.out.println(hijo.getInfo());
+        int codigo = 10;
+        if (codigo > datos.getUsers().size() || codigo <= 0) {
+            System.out.println("El usuario con ID " + codigo + " no ha sido encontrado.");
+        } else {
+            Nodo usuario = arbol.findNodo(raiz, raiz.getHijos().get(codigo - 1).getInfo());
+            System.out.println("Imprimiendo información del usuario: " + codigo);
+            System.out.println(usuario.getInfo());
+            System.out.println("\n***********************************************************");
+            // Mostar todos los post del usuario.
+            for (Nodo post : usuario.getHijos()) {
+                System.out.println(post.getInfo());
             }
-        } catch (java.lang.NullPointerException e){
-            System.out.println("No encontrado.");
+            System.out.println("\n*************************************************************");
+            // Mostrar post en específico y sus comentarios.
+            int postID = 1;
+            Nodo usrPost = arbol.findNodo(usuario, usuario.getHijos().get(postID - 1).getInfo());
+            System.out.println(usrPost.getInfo());
+            for (Nodo comment : usrPost.getHijos()) {
+                System.out.println(comment.getInfo());
+            }
+
         }
-        
+
     }
 }

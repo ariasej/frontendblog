@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * A node of any type. A node contains a dato and links to it's hijos and it's
  * padre.
  *
- * @param  Stringhe class type of the node
+ * @param Stringhe class type of the node
  */
 public class Nodo {
 
@@ -22,11 +22,6 @@ public class Nodo {
     public Nodo(String dato) {
         this.info = dato;
         this.hijos = new ArrayList<Nodo>();
-    }
-
-    public Nodo(Nodo nodo) {
-        this.info = nodo.getInfo();
-        hijos = new ArrayList<Nodo>();
     }
 
     /**
@@ -47,16 +42,8 @@ public class Nodo {
         this.hijos = hijos;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
     public void setPadre(Nodo padre) {
         this.padre = padre;
-    }
-
-    public Nodo getPadre() {
-        return this.padre;
     }
 
     public String getInfo() {
@@ -65,9 +52,5 @@ public class Nodo {
 
     public ArrayList<Nodo> getHijos() {
         return this.hijos;
-    }
-
-    public Nodo obtenerHijoEn(int i) {
-        return hijos.get(i);
     }
 }

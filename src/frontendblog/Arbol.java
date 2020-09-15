@@ -54,21 +54,6 @@ public class Arbol {
         return raiz;
     }
 
-    public boolean find(Nodo node, String keyNodo) {
-        boolean res = false;
-        if (node.getInfo().equals(keyNodo)) {
-            return true;
-        } else {
-            for (Nodo child : node.getHijos()) {
-                if (find(child, keyNodo)) {
-                    res = true;
-                }
-            }
-        }
-
-        return res;
-    }
-
     public Nodo findNodo(Nodo node, String keyNodo) {
         if (node == null) {
             return null;
