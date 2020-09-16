@@ -84,6 +84,36 @@ public class Arbol {
     }
 
     /**
+     * Se realiza la búsqueda de un usuario teniendo en cuenta su nombre.
+     * 
+     * @param name Nombre del usuario a buscar.
+     * @return Nodo del usuario encontrado.
+     */
+    public Nodo buscarUsuario(String name) {
+        for (Usuario user : DATOS.getUsers()) {
+            if (user.getNombre().toLowerCase().contains(name.toLowerCase())) {
+                return buscarNodo(raiz, user.toString());
+            }
+        }
+        return null;
+    }
+    
+    /**
+     * Se realiza la búsqueda del nodo Post que contenga algo de la información ingresada.
+     * 
+     * @param usuario Usuario que contiene el post a buscar.
+     * @param info Información a buscar.
+     * @return 
+     */
+    public Nodo buscarPost(Nodo usuario, String info) {
+        for (Nodo post : usuario.getHijos()) {
+            if (post.getInfo().toLowerCase().contains(info.toLowerCase())) {
+                return post;
+            }
+        }
+        return null;
+    }
+    /**
      *
      * Se obtiene un ArrayList de nodos obtenidos al recorrer el árbol.
      *

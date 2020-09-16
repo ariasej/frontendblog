@@ -58,7 +58,36 @@ public class Main {
             for (Nodo comment : usrPost.getHijos()) {
                 System.out.println(comment.getInfo());
             }
-
+        }
+        
+        // Búsqueda por información
+        System.out.println("\n------------------------------------------------------------------------");
+        String nombreUsr = "leann";
+        // Se obtiene el nodo que contiene la información de dicho usuario.
+        Nodo usuario = arbol.buscarUsuario(nombreUsr);
+        if (usuario != null){
+            System.out.println("Imprimiendo información del usuario: " + userID);
+            System.out.println(usuario.getInfo());
+            System.out.println("\n*************************************************************");
+            // Mostar todos los post del usuario.
+            for (Nodo post : usuario.getHijos()) {
+                System.out.println(post.getInfo());
+            }
+            System.out.println("\n*************************************************************");
+            String postInfo = "dolorem eum magni eos aperiam quia";
+            // Se obtiene el nodo que contiene el post buscado.
+            Nodo usrPost = arbol.buscarPost(usuario, postInfo);
+            if (usrPost != null){
+                System.out.println(usrPost.getInfo());
+                // Se imprimen los comentarios del post dado.
+                for (Nodo comment : usrPost.getHijos()) {
+                    System.out.println(comment.getInfo());
+                }
+            }else{
+                System.out.println("Post no encontrado.");
+            }              
+        }else{
+            System.out.println("Usuario no encontrado.");
         }
 
     }
