@@ -9,12 +9,14 @@ package frontendblog;
  *
  * @author Enrique Niebles
  */
-public class ListaSimple <T> {
-    private T dato;
-    private ListaSimple ptr; 
-    private ListaSimple link;    
+public class ListaEnlazada<T> {
 
-    public ListaSimple() {
+    private T dato;
+    private ListaEnlazada ptr;
+    private ListaEnlazada link;
+    private int size = 0;
+
+    public ListaEnlazada() {
         this.ptr = null;
     }
 
@@ -22,38 +24,43 @@ public class ListaSimple <T> {
         return dato;
     }
 
-    public ListaSimple getLink() {
+    public ListaEnlazada getLink() {
         return link;
     }
 
-    public ListaSimple getPtr() {
+    public ListaEnlazada getPtr() {
         return ptr;
     }
 
-    public void setPtr(ListaSimple ptr) {
+    public int getSize() {
+        return size;
+    }
+
+    public void setPtr(ListaEnlazada ptr) {
         this.ptr = ptr;
     }
-    
-    ListaSimple add(ListaSimple ptr, T dato){
-        ListaSimple p = ptr;
-        ListaSimple q = new ListaSimple();
+
+    ListaEnlazada add(ListaEnlazada ptr, T dato) {
+        ListaEnlazada p = ptr;
+        ListaEnlazada q = new ListaEnlazada();
         q.dato = dato;
         if (ptr == null) {
             ptr = q;
-        }else{
-            while(p.link != null){
+        } else {
+            while (p.link != null) {
                 p = p.link;
             }
             p.link = q;
         }
+        size++;
         return ptr;
     }
-    
-    T get(int index){
-        ListaSimple p = this.ptr;
+
+    T get(int index) {
+        ListaEnlazada p = this.ptr;
         int i = 0;
-        while (p != null){
-            if (i == index){
+        while (p != null) {
+            if (i == index) {
                 T dato = (T) p.dato;
                 return dato;
             }
@@ -61,5 +68,5 @@ public class ListaSimple <T> {
             i++;
         }
         return null;
-    }  
+    }
 }

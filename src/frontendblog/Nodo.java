@@ -5,8 +5,6 @@
  */
 package frontendblog;
 
-import java.util.ArrayList;
-
 /**
  * Clase Nodo que contiene la información de un nodo y sus hijos.
  *
@@ -15,17 +13,17 @@ import java.util.ArrayList;
 public class Nodo {
 
     private String info;
-    private ArrayList<Nodo> hijos;
+    private ListaEnlazada<Nodo> hijos;
 
     /**
-     * Constructor de la clase Nodo, asigna la info y crea el ArrayList que
+     * Constructor de la clase Nodo, asigna la info y crea la ListaEnlazada que
      * contendrá los hijos del nodo.
      *
      * @param dato Información que almacena el nodo.
      */
     public Nodo(String dato) {
         this.info = dato;
-        this.hijos = new ArrayList<Nodo>();
+        this.hijos = new ListaEnlazada<Nodo>();
     }
 
     /**
@@ -43,15 +41,15 @@ public class Nodo {
      * @param hijo
      */
     public void setHijo(Nodo hijo) {
-        hijos.add(hijo);
+        hijos.setPtr(hijos.add(hijos.getPtr(), hijo));
     }
 
     /**
      * Método para obtener los hijos del nodo.
      *
-     * @return ArrayList con los hijos de un nodo.
+     * @return ListaEnlazada con los hijos de un nodo.
      */
-    public ArrayList<Nodo> getHijos() {
+    public ListaEnlazada<Nodo> getHijos() {
         return this.hijos;
     }
 }

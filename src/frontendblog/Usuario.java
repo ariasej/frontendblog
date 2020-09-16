@@ -6,7 +6,6 @@
 package frontendblog;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +21,7 @@ public class Usuario {
     private String email;
     private JSONFileReader js;
 
-    private ArrayList<Post> posts;
+    private ListaEnlazada<Post> posts;
 
     public Usuario(int id, String nombre, String userName, String email) {
         this.id = id;
@@ -32,13 +31,13 @@ public class Usuario {
     }
 
     public Usuario() {
-        posts = new ArrayList<>();
+        posts = new ListaEnlazada<>();
         js = new JSONFileReader("src/Data/posts.json");
     }
 
     public void inicializarPosts() {
         String data = "";
-        ArrayList<Post> allPosts = new ArrayList<>(); // Leerá todos los posts del JSON para luego comparar cuál le pertene
+        ListaEnlazada<Post> allPosts = new ListaEnlazada<>(); // Leerá todos los posts del JSON para luego comparar cuál le pertene
 
         try {
             data = js.getJSONdataToString();
@@ -57,7 +56,7 @@ public class Usuario {
             p = new Post();
             titulo = JSONFileReader.extraerContenido(findTitle.group(0), "\"");
             p.setTitle(titulo);
-            allPosts.add(p);
+            allPosts.setPtr(allPosts.add(allPosts.getPtr(), p));
         }
 
         Pattern userId = Pattern.compile("[\"]userId[\"][:]\\s(\\d{1,})");
@@ -89,14 +88,17 @@ public class Usuario {
             cuerpo = JSONFileReader.extraerContenido(findBody.group(0), "\"");
             allPosts.get(i).setBody(cuerpo);
             i++;
-        }
-
-        for (Post post : allPosts) {
-            if (post.getUserId() == this.id) {
-                post.inicializarComentarios();
-                posts.add(post);
+        }       
+        
+        // Recorrer lista
+        ListaEnlazada<Post> listaPost = allPosts.getPtr();        
+        while(listaPost != null){
+            if(listaPost.getDato().getUserId() == this.id) {
+                listaPost.getDato().inicializarComentarios();
+                posts.setPtr(posts.add(posts.getPtr(), listaPost.getDato()));
             }
-        }
+            listaPost = listaPost.getLink();
+        } 
     }
 
     public String extraerContenido(String target, String delete) {
@@ -117,7 +119,7 @@ public class Usuario {
         StringBuffer sb = new StringBuffer();
         sb.append("\nNombre: ").append(this.getNombre());
         sb.append("\nID: ").append(this.getId());
-        sb.append("\nCantidad de posts de este usuario: ").append(posts.size());
+        sb.append("\nCantidad de posts de este usuario: ").append(posts.getSize());
         sb.append("\nUsername: ").append(this.getUserName());
         sb.append("\nE-mail: ").append(this.getEmail());
         return sb.toString();
@@ -182,11 +184,11 @@ public class Usuario {
     /**
      * @return the posts
      */
-    public ArrayList<Post> getPosts() {
+    public ListaEnlazada<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(ArrayList<Post> posts) {
+    public void setPosts(ListaEnlazada<Post> posts) {
         this.posts = posts;
     }
 

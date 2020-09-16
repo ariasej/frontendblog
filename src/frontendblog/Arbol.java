@@ -5,8 +5,6 @@
  */
 package frontendblog;
 
-import java.util.ArrayList;
-
 /**
  * Clase Arbol que contiene la estructura del árbol y sus métodos.
  *
@@ -34,20 +32,28 @@ public class Arbol {
      */
     public void insertaNodos() {
         // Insertar Usuarios al árbol.
-        for (Usuario usr : DATOS.getUsers()) {
-            Nodo nodoUsr = new Nodo(usr.toString());
+        
+        // Recorrer lista
+        ListaEnlazada<Usuario> datos = DATOS.getUsers().getPtr();        
+        while(datos != null){
+            Nodo nodoUsr = new Nodo(datos.getDato().toString());
             raiz.setHijo(nodoUsr);
             // Insertar Posts del usuario.
-            for (Post post : usr.getPosts()) {
-                Nodo nodoPost = new Nodo(post.toString());
+            ListaEnlazada<Post> postList = datos.getDato().getPosts().getPtr();        
+            while(postList != null){
+                Nodo nodoPost = new Nodo(postList.getDato().toString());
                 nodoUsr.setHijo(nodoPost);
                 // Insertar Comentarios del Post.
-                for (Comment comment : post.getComments()) {
-                    Nodo nodoComment = new Nodo(comment.toString());
+                ListaEnlazada p = postList.getDato().getComments().getPtr();        
+                while(p != null){
+                    Nodo nodoComment = new Nodo(p.getDato().toString());
                     nodoPost.setHijo(nodoComment);
-                }
-            }
-        }
+                    p = p.getLink();
+                } 
+                postList = postList.getLink();
+            }             
+            datos = datos.getLink();
+        } 
     }
 
     /**
@@ -73,11 +79,13 @@ public class Arbol {
             return nodo;
         } else {
             Nodo nodoInfo = null;
-            for (Nodo hijo : nodo.getHijos()) {
-                nodoInfo = buscarNodo(hijo, informacion);
+            ListaEnlazada<Nodo> p = nodo.getHijos().getPtr();
+            while (p != null) {
+                nodoInfo = buscarNodo(p.getDato(), informacion);
                 if (nodoInfo != null) {
                     return nodoInfo;
                 }
+                p = p.getLink();
             }
         }
         return null;
@@ -85,42 +93,48 @@ public class Arbol {
 
     /**
      * Se realiza la búsqueda de un usuario teniendo en cuenta su nombre.
-     * 
+     *
      * @param name Nombre del usuario a buscar.
      * @return Nodo del usuario encontrado.
      */
     public Nodo buscarUsuario(String name) {
-        for (Usuario user : DATOS.getUsers()) {
-            if (user.getNombre().toLowerCase().contains(name.toLowerCase())) {
-                return buscarNodo(raiz, user.toString());
+        ListaEnlazada<Usuario> datos = DATOS.getUsers().getPtr();        
+        while(datos != null){
+            if (datos.getDato().getNombre().toLowerCase().contains(name.toLowerCase())) {
+                return buscarNodo(raiz, datos.getDato().toString());
             }
-        }
+            datos = datos.getLink();
+        } 
         return null;
     }
-    
+
     /**
-     * Se realiza la búsqueda del nodo Post que contenga algo de la información ingresada.
-     * 
+     * Se realiza la búsqueda del nodo Post que contenga algo de la información
+     * ingresada.
+     *
      * @param usuario Usuario que contiene el post a buscar.
      * @param info Información a buscar.
-     * @return 
+     * @return
      */
     public Nodo buscarPost(Nodo usuario, String info) {
-        for (Nodo post : usuario.getHijos()) {
-            if (post.getInfo().toLowerCase().contains(info.toLowerCase())) {
-                return post;
+        ListaEnlazada<Nodo> p = usuario.getHijos().getPtr();
+        while (p != null) {
+            if (p.getDato().getInfo().toLowerCase().contains(info.toLowerCase())) {
+                return p.getDato();
             }
+            p = p.getLink();
         }
         return null;
     }
+
     /**
      *
-     * Se obtiene un ArrayList de nodos obtenidos al recorrer el árbol.
+     * Se obtiene una Lista Enlazada de nodos obtenidos al recorrer el árbol.
      *
-     * @return preOrden ArrayList con los Nodos del árbol.
+     * @return preOrden Lista Enlazada con los Nodos del árbol.
      */
-    public ArrayList<Nodo> recorrerArbol() {
-        ArrayList<Nodo> recorrido = new ArrayList();
+    public ListaEnlazada<Nodo> recorrerArbol() {
+        ListaEnlazada<Nodo> recorrido = new ListaEnlazada();
         mostrarRecorrido(raiz, recorrido);
         return recorrido;
     }
@@ -128,13 +142,15 @@ public class Arbol {
     /**
      * Recorre el árbol, nodo por nodo, y guarda su información.
      *
-     * @param nodo Nodo a añadir en el ArrayList.
-     * @param recorrido ArrayList con la información de los nodos.
+     * @param nodo Nodo a añadir en la Lista Enlazada.
+     * @param recorrido Lista Enlazada con la información de los nodos.
      */
-    private void mostrarRecorrido(Nodo nodo, ArrayList<Nodo> recorrido) {
-        recorrido.add(nodo);
-        for (Nodo hijo : nodo.getHijos()) {
-            mostrarRecorrido(hijo, recorrido);
+    private void mostrarRecorrido(Nodo nodo, ListaEnlazada<Nodo> recorrido) {
+        recorrido.setPtr(recorrido.add(recorrido.getPtr(), nodo));
+        ListaEnlazada<Nodo> p = nodo.getHijos().getPtr();
+        while (p != null) {
+            mostrarRecorrido(p.getDato(), recorrido);
+            p = p.getLink();
         }
     }
 }

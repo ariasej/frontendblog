@@ -6,8 +6,6 @@
 package frontendblog;
 
 import java.io.IOException;
-
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,13 +15,13 @@ import java.util.regex.Pattern;
  */
 public class Datos {
 
-    private ArrayList<Usuario> users;
+    private ListaEnlazada<Usuario> users;
 
     private JSONFileReader js;
 
     public Datos() {
         js = new JSONFileReader("src/Data/users.json");
-        users = new ArrayList<>();
+        users = new ListaEnlazada<>();
         Comment.initLevelizer();
         inicializarUsuarios();
     }
@@ -60,7 +58,7 @@ public class Datos {
             Usuario usr = new Usuario();
             usr.setId(Integer.parseInt(buscarId.group(1)));
             usr.inicializarPosts();
-            users.add(usr);
+            users.setPtr(users.add(users.getPtr(), usr));
         }
 
         while (buscarName.find()) {
@@ -84,17 +82,7 @@ public class Datos {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        for (Usuario user : users) {
-            sb.append("\n--------------------------------------------------------------\n");
-            sb.append(user);
-        }
-        return sb.toString();
-    }
-
-    public ArrayList<Usuario> getUsers() {
+    public ListaEnlazada<Usuario> getUsers() {
         return users;
     }
 

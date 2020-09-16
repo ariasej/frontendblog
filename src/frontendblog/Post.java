@@ -5,8 +5,6 @@
  */
 package frontendblog;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author jony1
@@ -17,7 +15,7 @@ class Post {
     private int id;
     private String title;
     private String body;
-    private ArrayList<Comment> comments;
+    private ListaEnlazada<Comment> comments;
     private JSONFileReader js;
 
     public Post(int userId, int id, String title, String body) {
@@ -29,7 +27,7 @@ class Post {
     }
 
     public Post() {
-        comments = new ArrayList<>();
+        comments = new ListaEnlazada<>();
         js = new JSONFileReader("src/Data/comments.json");
     }
 
@@ -89,12 +87,14 @@ class Post {
         this.body = body;
     }
 
-    void inicializarComentarios() {      
-        for (Comment comment : Comment.levelizer) {
-            if (comment.getPostId() == id) {
-                this.comments.add(comment);
+    void inicializarComentarios() { 
+        ListaEnlazada<Comment> p = Comment.levelizer.getPtr();        
+        while(p != null){
+            if (p.getDato().getPostId() == id) {
+                this.comments.setPtr(this.comments.add(this.comments.getPtr(), p.getDato()));
             }
-        }
+            p = p.getLink();
+        }  
     }
     
     @Override
@@ -107,7 +107,7 @@ class Post {
         return sb.toString();
     }
 
-    public ArrayList<Comment> getComments() {
+    public ListaEnlazada<Comment> getComments() {
         return comments;
     }   
 

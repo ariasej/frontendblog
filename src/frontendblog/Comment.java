@@ -6,7 +6,6 @@
 package frontendblog;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +22,7 @@ class Comment {
     private String name;
     private String email;
     private String body;
-    public static ArrayList<Comment> levelizer;
+    public static ListaEnlazada<Comment> levelizer;
 
     public Comment(int postId, int id, String name, String email, String body) {
         this.postId = postId;
@@ -39,7 +38,7 @@ class Comment {
 
     public static void initLevelizer() {
         String data = "";
-        levelizer = new ArrayList<>();
+        levelizer = new ListaEnlazada<>();
 
         try {
             data = js.getJSONdataToString();
@@ -57,7 +56,7 @@ class Comment {
             c = new Comment();
             titulo = JSONFileReader.extraerContenido(findTitle.group(0), "\"");
             c.setName(titulo);
-            levelizer.add(c);
+            levelizer.setPtr(levelizer.add(levelizer.getPtr(), c));
         }
 
         Pattern postId = Pattern.compile("[\"]postId[\"][:]\\s(\\d{1,})");
