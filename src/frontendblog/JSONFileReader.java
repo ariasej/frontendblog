@@ -41,7 +41,7 @@ public class JSONFileReader {
 
             entrada += cadena + "\n";
         }
-        file.close();
+//        file.close();
 
         return entrada;
     }
