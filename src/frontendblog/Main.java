@@ -13,6 +13,13 @@ package frontendblog;
 public class Main {
 
     public static void main(String[] args) {
+
+        //Logica Jframe
+        FramePrincipal frameF = new FramePrincipal();
+        frameF.setVisible(true);
+        frameF.setBounds(0, 0, 720, 405);
+        frameF.setLocationRelativeTo(null);
+
         // Se realiza la lectura de datos del JSONFileReader.
         Datos datos = new Datos();
         // Se instancia un objeto arbol de la clase Arbol.
@@ -57,8 +64,8 @@ public class Main {
             Nodo usrPost = arbol.buscarNodo(usuario, usuario.getHijos().get(postID - 1).getInfo());
             System.out.println(usrPost.getInfo());
             // Se imprimen los comentarios del post dado.                 
-            ListaEnlazada<Nodo> comments = usuario.getHijos().getPtr();
-            while (posts != null) {
+            ListaEnlazada<Nodo> comments = usrPost.getHijos().getPtr();
+            while (comments != null) {
                 System.out.println(comments.getDato().getInfo());
                 comments = comments.getLink();
             }
