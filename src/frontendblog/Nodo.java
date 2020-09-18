@@ -38,7 +38,7 @@ public class Nodo {
     /**
      * Permite la inserción de un hijo al nodo.
      *
-     * @param hijo
+     * @param hijo Hujo del nodo.
      */
     public void setHijo(Nodo hijo) {
         hijos.setPtr(hijos.add(hijos.getPtr(), hijo));

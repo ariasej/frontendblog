@@ -28,7 +28,6 @@ public class Arbol {
     /**
      * Se inserta la información extraída de los JSON en el árbol.
      *
-     * @see insertarHijo()
      */
     public void insertaNodos() {
         // Insertar Usuarios al árbol.
@@ -114,7 +113,7 @@ public class Arbol {
      *
      * @param usuario Usuario que contiene el post a buscar.
      * @param info Información a buscar.
-     * @return
+     * @return Información del post.
      */
     public Nodo buscarPost(Nodo usuario, String info) {
         ListaEnlazada<Nodo> p = usuario.getHijos().getPtr();

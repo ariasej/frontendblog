@@ -26,7 +26,6 @@ public class FramePrincipal extends javax.swing.JFrame {
         areaComentarios.setLineWrap(true);
         Panel2.setVisible(false);
         Panel3.setVisible(false);
-
     }
 
     @SuppressWarnings("unchecked")
@@ -327,7 +326,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     // Metodo mostrar info en el panel 2
     public void primerRegistro() {
         if (principalTextField.getText().isEmpty() || "(Introduzca palabra clave: Usuario, Id post o Id Comentario)".equals(datoVentanaPrimera)) {
-            JOptionPane.showMessageDialog(null, "Asegurese de llenar todos los campos", "¡ERROR!", 1);
+            JOptionPane.showMessageDialog(null, "Asegúrese de llenar todos los campos", "¡ERROR!", 1);
         } else {
             datoVentanaPrimera = principalTextField.getText();
             userID = Integer.parseInt(datoVentanaPrimera);
@@ -351,7 +350,7 @@ public class FramePrincipal extends javax.swing.JFrame {
                 numComent = 0;
                 //Conteo de posts y comentarios
                 areaComentarios.setText("");
-                areaComentarios.setText("POST DEL USUARIO CON ID:" + userID);
+                areaComentarios.setText("POST DEL USUARIO CON ID: " + userID);
                 ListaEnlazada<Nodo> comments;
                 while (posts != null) {
                     comments = posts.getDato().getHijos().getPtr();
@@ -380,7 +379,7 @@ public class FramePrincipal extends javax.swing.JFrame {
     // Metodo de mostrar info en los textAreas del panel 3
     public void segundoRegistro() {
         if (buscarPostTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Asegurese de llenar al menos uno de los campos", "¡ERROR!", 1);
+            JOptionPane.showMessageDialog(null, "Asegúrese de llenar al menos uno de los campos", "¡ERROR!", 1);
         } else {
             datoSegundo = buscarPostTextField.getText();
             postID = Integer.parseInt(datoSegundo);
@@ -397,26 +396,19 @@ public class FramePrincipal extends javax.swing.JFrame {
                     areaComentarios.setText(areaComentarios.getText() + "\n" + comments.getDato().getInfo());
                     comments = comments.getLink();
                 }
-
             }
-
         }
     }
 
     //  Transiciones entre Paneles 1,2 y 3
     private void atras2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atras2MouseClicked
-
         Panel2.setVisible(false);
         Panel1.setVisible(true);
-
     }//GEN-LAST:event_atras2MouseClicked
 
     private void verMasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_verMasMouseClicked
-
         Panel2.setVisible(false);
         Panel3.setVisible(true);
-
-
     }//GEN-LAST:event_verMasMouseClicked
 
     private void atras3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_atras3MouseClicked
@@ -429,12 +421,10 @@ public class FramePrincipal extends javax.swing.JFrame {
         Panel3.setVisible(false);
         areaComentarios.setText("");
         Panel1.setVisible(true);
-
     }//GEN-LAST:event_atras3MouseClicked
 
     private void busqueda2ButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_busqueda2ButtonMouseClicked
         segundoRegistro();
-
     }//GEN-LAST:event_busqueda2ButtonMouseClicked
     // Validaciones en TextFields
     private void principalTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_principalTextFieldKeyTyped
@@ -442,10 +432,8 @@ public class FramePrincipal extends javax.swing.JFrame {
         if (Character.isLetter(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Asegurese que el ID este escrito con numeros", "¡ERROR!", 1);
+            JOptionPane.showMessageDialog(null, "Asegúrese que el ID esté escrito con números.", "¡ERROR!", 1);
         }
-        
-        
     }//GEN-LAST:event_principalTextFieldKeyTyped
 
     private void buscarPostTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscarPostTextFieldKeyTyped
@@ -453,7 +441,7 @@ public class FramePrincipal extends javax.swing.JFrame {
         if (Character.isLetter(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Asegurese que el ID este escrito con numeros", "¡ERROR!", 1);
+            JOptionPane.showMessageDialog(null, "Asegúrese que el ID esté escrito con números.", "¡ERROR!", 1);
         }
     }//GEN-LAST:event_buscarPostTextFieldKeyTyped
     // Llamado a los metodos principales desde un KeyEvent
