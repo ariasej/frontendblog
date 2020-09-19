@@ -113,16 +113,23 @@ public class Usuario {
         target = target.replaceAll("\"", "");
         return target;
     }
-
+  
     @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("\nNombre: ").append(this.getNombre());
-        sb.append("\nID: ").append(this.getId());
-        sb.append("\nCantidad de posts de este usuario: ").append(posts.getSize());
-        sb.append("\nUsername: ").append(this.getUserName());
-        sb.append("\nE-mail: ").append(this.getEmail());
-        return sb.toString();
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario usr = (Usuario) obj;
+        if (this.id != usr.id) {
+            return false;
+        }
+        return true;
     }
 
     /**

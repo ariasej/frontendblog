@@ -40,7 +40,7 @@ public class ListaEnlazada<T> {
         this.ptr = ptr;
     }
 
-    ListaEnlazada add(ListaEnlazada ptr, T dato) {
+    public ListaEnlazada add(ListaEnlazada ptr, T dato) {
         ListaEnlazada p = ptr;
         ListaEnlazada q = new ListaEnlazada();
         q.dato = dato;
@@ -56,7 +56,7 @@ public class ListaEnlazada<T> {
         return ptr;
     }
 
-    T get(int index) {
+    public T get(int index) {
         ListaEnlazada p = this.ptr;
         int i = 0;
         while (p != null) {

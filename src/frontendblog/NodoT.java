@@ -1,19 +1,17 @@
 /*
- * Stringo change this license header, choose License Headers in Project Properties.
- * Stringo change this template file, choose Stringools | Stringemplates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package frontendblog;
 
 /**
- * Clase Nodo que contiene la información de un nodo y sus hijos.
  *
  * @author Enrique Niebles
  */
-public class Nodo {
-
-    private String info;
-    private ListaEnlazada<Nodo> hijos;
+public class NodoT<T> {
+    private T info;
+    private ListaEnlazada<NodoT> hijos;
 
     /**
      * Constructor de la clase Nodo, asigna la info y crea la ListaEnlazada que
@@ -21,9 +19,9 @@ public class Nodo {
      *
      * @param dato Información que almacena el nodo.
      */
-    public Nodo(String dato) {
+    public NodoT(T dato) {
         this.info = dato;
-        this.hijos = new ListaEnlazada<Nodo>();
+        this.hijos = new ListaEnlazada<>();
     }
 
     /**
@@ -31,7 +29,7 @@ public class Nodo {
      *
      * @return la infomación del nodo.
      */
-    public String getInfo() {
+    public T getInfo() {
         return this.info;
     }
 
@@ -40,7 +38,7 @@ public class Nodo {
      *
      * @param hijo Hijo del nodo.
      */
-    public void setHijo(Nodo hijo) {
+    public void setHijo(NodoT hijo) {
         hijos.setPtr(hijos.add(hijos.getPtr(), hijo));
     }
 
@@ -49,7 +47,8 @@ public class Nodo {
      *
      * @return ListaEnlazada con los hijos de un nodo.
      */
-    public ListaEnlazada<Nodo> getHijos() {
+    public ListaEnlazada<NodoT> getHijos() {
         return this.hijos;
     }
+
 }

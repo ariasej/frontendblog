@@ -51,13 +51,11 @@ public class JSONFileReader {
         while (target.contains(delete)) {
             target = target.substring(target.indexOf(delete) + 1);
             i++;
-            // System.out.println(target);
             if (i == 3) {
                 break;
             }
         }
         target = target.replaceAll("\"", "");
-        // System.out.println(target);
         return target;
     }
 }

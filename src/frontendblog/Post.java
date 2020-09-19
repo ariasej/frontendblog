@@ -97,16 +97,6 @@ class Post {
         }  
     }
     
-    @Override
-    public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("\nId post: ").append(this.id);
-        sb.append("\nID creador: ").append(this.userId);
-        sb.append("\nTítulo: ").append(this.title);
-        sb.append("\nCuerpo: ").append(this.body);
-        return sb.toString();
-    }
-
     public ListaEnlazada<Comment> getComments() {
         return comments;
     }   
