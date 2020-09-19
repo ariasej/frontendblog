@@ -23,7 +23,6 @@ public class ArbolT {
         this.raiz = new NodoT("");
         this.DATOS = datos;
     }
-
     
     public void insertarNodos(){
         // Insertar Usuarios al árbol.        
@@ -74,7 +73,7 @@ public class ArbolT {
     /**
      * Se realiza la búsqueda de un usuario teniendo en cuenta su nombre.
      *
-     * @param name Nombre del usuario a buscar.
+     * @param id Nombre del usuario a buscar.
      * @return Nodo del usuario encontrado.
      */
     public NodoT buscarUsuario(int id) {
@@ -113,7 +112,7 @@ public class ArbolT {
      * ingresada.
      *
      * @param usuario Usuario que contiene el post a buscar.
-     * @param title Información a buscar.
+     * @param id Información a buscar.
      * @return Información del post.
      */
     public NodoT buscarPost(NodoT usuario, int id) {

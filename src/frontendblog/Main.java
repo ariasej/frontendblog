@@ -24,26 +24,24 @@ public class Main {
         arbol = new ArbolT(datos);
         // Se insertan llena el árbol con la información extraída del JSON.
         arbol.insertarNodos();
-
-        // Se obtiene el nodo raíz del árbol.
-        NodoT raiz = arbol.getRaiz();
-        // Se introduce el código del usuario a buscar.
-        int userID = 10;
-        busquedaUsuario(userID);
+        
+        // Se introduce la información del usuario a buscar.
+        String usrInfo = "lean";
+        try {
+            int userID = Integer.parseInt(usrInfo);
+            busquedaUsuario(userID);
+        } catch (NumberFormatException e) {
+            busquedaUsuario(usrInfo);
+        }
         System.out.println("\n*************************************************************");
-        // Se introduce el código del post a buscar.
-        int postID = 100;
-        // Se obtiene el nodo que contiene el post buscado.
-        busquedaPost(postID);
-
-        // Búsqueda por texto        
-        System.out.println("\n------------------------------------------------------------------------");
-        // Búsqueda por nombre de usuario.
-        String nombreUsr = "leann";
-        busquedaUsuario(nombreUsr);
-        // Búsqueda de un post por su título.
-        String postTitle = "sunt aut facere repellat provident occaecati excepturi optio reprehenderit";
-        busquedaPost(postTitle);
+        // Se introduce la información del post a buscar.  
+        String postInfo = "100";
+        try {
+            int postID = Integer.parseInt(postInfo);
+            busquedaPost(postID);
+        } catch (NumberFormatException excepcion) {
+            busquedaPost(postInfo);
+        }
     }
 
     public static void imprimirUsuario(Usuario usr) {
