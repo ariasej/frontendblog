@@ -97,6 +97,11 @@ class Post {
         }  
     }
     
+    /**
+     * Se obtiene la ListaEnlazada con los Comentarios.
+     * 
+     * @return ListaEnlazada.
+     */
     public ListaEnlazada<Comment> getComments() {
         return comments;
     }   

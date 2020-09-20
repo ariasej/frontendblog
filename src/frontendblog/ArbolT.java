@@ -6,6 +6,7 @@
 package frontendblog;
 
 /**
+ * Clase Arbol que contiene la estructura del árbol y sus métodos.
  *
  * @author Enrique Niebles
  */
@@ -13,6 +14,7 @@ public class ArbolT {
     
     final private NodoT<String> raiz;
     final private Datos DATOS;
+    final private ListaEnlazada<NodoT> post_busqueda;
 
     /**
      * Se inicializa la clase árbol.
@@ -22,8 +24,13 @@ public class ArbolT {
     public ArbolT(Datos datos) {
         this.raiz = new NodoT("");
         this.DATOS = datos;
+        this.post_busqueda = new ListaEnlazada<>();
     }
     
+    /**
+     * Se inserta la información extraída de los JSON en el árbol.
+     *
+     */
     public void insertarNodos(){
         // Insertar Usuarios al árbol.        
         // Recorrer lista
@@ -49,6 +56,11 @@ public class ArbolT {
         }    
     }
     
+    /**
+     * Se obtiene la raíz del Árbol.
+     * 
+     * @return NodoT Nodo que contiene la raíz.
+     */
     public NodoT getRaiz() {
         return raiz;
     }    
@@ -63,7 +75,7 @@ public class ArbolT {
         ListaEnlazada<NodoT> p = this.raiz.getHijos().getPtr();
         while (p != null) {
             Usuario user = (Usuario) p.getDato().getInfo();
-            if (user.getNombre().toLowerCase().contains(name.toLowerCase())) {
+            if (user.getNombre().toLowerCase().contains(name.toLowerCase().trim())) {
                 return p.getDato();
             }
             p = p.getLink();
@@ -71,9 +83,9 @@ public class ArbolT {
         return null;
     }
     /**
-     * Se realiza la búsqueda de un usuario teniendo en cuenta su nombre.
+     * Se realiza la búsqueda de un usuario teniendo en cuenta su ID.
      *
-     * @param id Nombre del usuario a buscar.
+     * @param id ID del usuario a buscar.
      * @return Nodo del usuario encontrado.
      */
     public NodoT buscarUsuario(int id) {
@@ -87,25 +99,34 @@ public class ArbolT {
         }
         return null;
     }
+    
     /**
      * Se realiza la búsqueda del nodo Post que contenga algo de la información
      * ingresada.
      *
      * @param usuario Usuario que contiene el post a buscar.
-     * @param title Información a buscar.
-     * @return Información del post.
+     * @param infoTitle Información del título a buscar.
      */
-    public NodoT buscarPost(NodoT usuario, String title) {
+    public void buscarPost(NodoT usuario, String infoTitle) {
         ListaEnlazada<NodoT> p = usuario.getHijos().getPtr();
         while (p != null) {
             Post post = (Post) p.getDato().getInfo();
-            if (post.getTitle().toLowerCase().contains(title.toLowerCase())) {
-                return p.getDato();
+            if (post.getTitle().toLowerCase().contains(infoTitle.toLowerCase().trim())) {
+                // Se agrega el Post a la lista de coincidencias.
+                post_busqueda.setPtr(post_busqueda.add(post_busqueda.getPtr(), p.getDato()));
             }
             p = p.getLink();
         }
-        return null;
     }
+
+    /**
+     * Lista con los Post que coincidieron con la búsqueda.
+     * 
+     * @return ListaEnlazada de Post.
+     */
+    public ListaEnlazada<NodoT> getPost_busqueda() {
+        return this.post_busqueda;
+    }   
     
     /**
      * Se realiza la búsqueda del nodo Post que contenga algo de la información
@@ -113,7 +134,7 @@ public class ArbolT {
      *
      * @param usuario Usuario que contiene el post a buscar.
      * @param id Información a buscar.
-     * @return Información del post.
+     * @return Nodo que contiene al post.
      */
     public NodoT buscarPost(NodoT usuario, int id) {
         ListaEnlazada<NodoT> p = usuario.getHijos().getPtr();
@@ -127,6 +148,11 @@ public class ArbolT {
         return null;
     }
     
+    /**
+     * Se realiza el recorrido a lo largo de todo el árbol.
+     * 
+     * @return ListaEnlazada con los nodos del recorrido del árbol.
+     */
     public ListaEnlazada<NodoT> recorrerArbol() {
         ListaEnlazada<NodoT> recorrido = new ListaEnlazada();
         mostrarRecorrido(raiz, recorrido);
