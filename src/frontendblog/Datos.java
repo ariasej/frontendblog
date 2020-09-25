@@ -10,7 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ * Clase que contiene las expresiones regulares para extraer los datos de un usuario y el almacenamiento de estos en una lista.
+ * 
  * @author jony1
  */
 public class Datos {

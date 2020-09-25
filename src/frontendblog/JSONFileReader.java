@@ -11,7 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- *
+ * Clase encargada de convertir la informacion obtenida del Json.
+ * 
  * @author jony1
  */
 public class JSONFileReader {

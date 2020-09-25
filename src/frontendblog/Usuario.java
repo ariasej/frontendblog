@@ -10,7 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
+ *Clase Usuario que contiene las expresiones regulares usadas, informacion del objeto usuario y sus métodos.
+ * 
  * @author jony1
  */
 public class Usuario {

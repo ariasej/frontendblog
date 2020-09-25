@@ -6,9 +6,11 @@
 package frontendblog;
 
 /**
- *
+ * Clase Nodo que contiene la información de un nodo y sus hijos.
+ * 
  * @author Enrique Niebles
  */
+
 public class NodoT<T> {
     private T info;
     private ListaEnlazada<NodoT> hijos;
